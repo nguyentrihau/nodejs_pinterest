@@ -1,4 +1,5 @@
 const rootRoute = require("./routers/rootRoute");
+const multer = require("fastify-multer");
 
 const server = require("fastify")({
   logger: true,
@@ -13,4 +14,5 @@ const server = require("fastify")({
   }
 })();
 
+server.register(multer.contentParser);
 server.register(rootRoute, { prefix: "/api" });

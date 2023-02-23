@@ -13,13 +13,17 @@ const checkToken = (token) => {
   return result;
 };
 
-const verifyToken = async (req, res, next) => {
+const verifyToken = (req, res, next) => {
   try {
-    const { token } = req.headers;
+    const { authorization } = req.headers;
+    const token = authorization.split("Bearer ")[1];
+    if (!token) {
+      failCode(res, "Token không hợp lệ!");
+      return;
+    }
     if (checkToken(token)) next();
-    else failCode(res, "Token không hợp lệ!");
   } catch (error) {
-    errorCode(res, "Lỗi backend");
+    failCode(res, "Token không hợp lệ!");
   }
 };
 
