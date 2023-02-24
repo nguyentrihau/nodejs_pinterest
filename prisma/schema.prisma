@@ -22,9 +22,10 @@ model comments {
 
 model images {
   img_id   Int        @id @default(autoincrement())
-  img_name String     @db.VarChar(150)
   user_id  Int
-  img_time DateTime   @db.DateTime(0)
+  img_time DateTime   @db.Date
+  img_name String     @db.LongText
+  path     String     @db.VarChar(150)
   comments comments[]
   users    users      @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "images_ibfk_1")
   save     save[]
@@ -45,13 +46,23 @@ model save {
 }
 
 model users {
-  user_id   Int        @id @default(autoincrement())
-  email     String     @db.VarChar(100)
-  password  String     @db.VarChar(500)
-  user_name String     @db.VarChar(50)
-  age       Int
-  avatar    String     @db.VarChar(5000)
-  comments  comments[]
-  images    images[]
-  save      save[]
+  user_id                                 Int        @id @default(autoincrement())
+  email                                   String     @db.VarChar(100)
+  password                                String     @db.VarChar(500)
+  user_name                               String     @db.VarChar(50)
+  age                                     Int
+  avatar                                  String?    @db.LongText
+  permission                              Int        @default(1)
+  comments                                comments[]
+  images                                  images[]
+  save                                    save[]
+  permission_users_permissionTopermission permission @relation("users_permissionTopermission", fields: [permission], references: [permission_value], onDelete: NoAction, onUpdate: NoAction, map: "users_ibfk_1")
+
+  @@index([permission], map: "permission")
+}
+
+model permission {
+  permission_name                    String  @db.VarChar(100)
+  permission_value                   Int     @id
+  users_users_permissionTopermission users[] @relation("users_permissionTopermission")
 }

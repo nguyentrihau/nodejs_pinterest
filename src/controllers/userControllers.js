@@ -1,10 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
+const model = new PrismaClient();
 const { passwordRegExp, EmailRegExp } = require("../config/regExp");
 const { errorCode, failCode, successCode } = require("../config/response");
-const model = new PrismaClient();
 const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/jwtoken");
-const { getUserIDFromToken } = require("../config/function");
+const { getUserIDFromToken, avatarPath } = require("../config/function");
 
 const signUp = async (req, res) => {
   try {
@@ -49,12 +49,13 @@ const signUp = async (req, res) => {
       password: bcrypt.hashSync(password, 10),
       age,
       user_name,
-      avatar: process.env.DEFAULT_AVATAR,
+      avatar: `${avatarPath}/avatardefault.png`,
     };
 
     await model.users.create({ data });
     successCode(res, "Tạo tài khoản thành công!");
   } catch (error) {
+    console.log(error);
     errorCode(res, "Lỗi backend");
   }
 };
@@ -94,7 +95,11 @@ const getUserInfo = async (req, res) => {
     });
     if (checkIfExist) {
       delete checkIfExist["password"];
-      successCode(res, "Lấy thông tin thành công", checkIfExist);
+      successCode(res, "Lấy thông tin thành công", {
+        ...checkIfExist,
+        avatar: avatarPath + checkIfExist.avatar,
+        status: checkIfExist.permission === 0 ? "Banned" : "Unbanned",
+      });
     } else failCode(res, "Không tìm thấy user này!");
   } catch (error) {
     console.log(error);
@@ -111,7 +116,11 @@ const getCurrentUserInfo = async (req, res) => {
           user_id,
         },
       });
-      if (data) successCode(res, "Lấy thông tin thành công!", data);
+      if (data)
+        successCode(res, "Lấy thông tin thành công!", {
+          ...data,
+          avatar: avatarPath + data.avatar,
+        });
       else failCode(res, "Lỗi data");
     } else failCode(res, "Không tìm thấy user");
   } catch (error) {
@@ -129,10 +138,97 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const checkIfExistUser = await model.users.findFirst({
+      where: {
+        user_id,
+      },
+    });
+
+    await model.users.delete({
+      where: {
+        user_id,
+      },
+    });
+    successCode(res, `Xóa thành công user ${checkIfExistUser.user_name}`);
+  } catch (error) {
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
+const setPermission = async (req, res) => {
+  try {
+    const { user_id, permission_value } = req.body;
+    const checkIfExistUser = await model.users.findFirst({
+      where: { user_id },
+    });
+
+    await model.users.update({
+      where: {
+        user_id,
+      },
+      data: {
+        permission: permission_value,
+      },
+    });
+    const permissionName = await model.permission.findFirst({
+      where: {
+        permission_value,
+      },
+    });
+    return successCode(
+      res,
+      `Phân quyền cho ${checkIfExistUser.user_name} trở thành ${permissionName.permission_name} thành công!`
+    );
+  } catch (error) {
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
+const banUser = async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    await model.users.update({
+      where: {
+        user_id,
+      },
+      data: {
+        permission: 0,
+      },
+    });
+    successCode(res, "Ban user thành công!");
+  } catch (error) {
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
+const unbannedUser = async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    await model.users.update({
+      where: {
+        user_id,
+      },
+      data: {
+        permission: 1,
+      },
+    });
+    successCode(res, "Unbanned user thành công!");
+  } catch (error) {
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
   getUserInfo,
   getCurrentUserInfo,
   getAllUsers,
+  deleteUser,
+  setPermission,
+  banUser,
+  unbannedUser,
 };

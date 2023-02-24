@@ -1,7 +1,15 @@
 const {
+  permissionCheckOnParams,
+  permissionCheckInBody,
+  banPermissionCheckonParams,
+} = require("../config/function");
+const {
   signUpSchema,
   signInSchema,
   getUserInfoSchema,
+  deleteUserSchema,
+  setPermissionSchema,
+  banUserSchema,
 } = require("../config/schema");
 const {
   signUp,
@@ -9,6 +17,10 @@ const {
   getUserInfo,
   getCurrentUserInfo,
   getAllUsers,
+  deleteUser,
+  setPermission,
+  banUser,
+  unbannedUser,
 } = require("../controllers/userControllers");
 const { verifyToken } = require("../utils/jwtoken");
 
@@ -22,6 +34,35 @@ const userRoute = async (server) => {
     getCurrentUserInfo
   );
   server.get("/getAllUsers", {}, getAllUsers);
+  server.delete(
+    "/deleteUser/:user_id",
+    { ...deleteUserSchema, preHandler: [verifyToken, permissionCheckOnParams] },
+    deleteUser
+  );
+  server.put(
+    "/setPermission",
+    {
+      ...setPermissionSchema,
+      preHandler: [verifyToken, permissionCheckInBody],
+    },
+    setPermission
+  );
+  server.put(
+    "/banUser/:user_id",
+    {
+      ...banUserSchema,
+      preHandler: [verifyToken, banPermissionCheckonParams],
+    },
+    banUser
+  );
+  server.put(
+    "/unbannedUser/:user_id",
+    {
+      ...banUserSchema,
+      preHandler: [verifyToken, banPermissionCheckonParams],
+    },
+    unbannedUser
+  );
 };
 
 module.exports = userRoute;

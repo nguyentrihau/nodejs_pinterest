@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const { errorCode, successCode, failCode } = require("../config/response");
 const model = new PrismaClient();
 const fs = require("fs");
+
 const { getUserIDFromToken } = require("../config/function");
 
 const avatarUpload = async (req, res) => {
@@ -9,43 +10,64 @@ const avatarUpload = async (req, res) => {
     const { authorization } = req.headers;
     const user_id = getUserIDFromToken(authorization);
     const img = req.file;
-    if (!user_id) {
-      failCode(res, "Token không hợp lệ!");
-      return;
-    }
-    const checkIfExist = await model.users.findFirst({
+    if (req.fileValidationError) return failCode(res, req.fileValidationError);
+
+    const userFromToken = await model.users.findFirst({
       where: {
         user_id,
       },
     });
-    if (checkIfExist) {
-      fs.readFile(
-        process.cwd() + "/public/img/" + img.filename,
-        (err, data) => {
-          let fileName = `data:${img.mimetype};base64,${Buffer.from(
-            data
-          ).toString("base64")}`;
-          //xoa hình vừa up
-          fs.unlinkSync(process.cwd() + "/public/img/" + img.filename);
-          const models = {
-            ...checkIfExist,
-            avatar: fileName,
-          };
-          model.users.update({
-            data: models,
-            where: {
-              user_id: checkIfExist.user_id,
-            },
-          });
-        }
-      );
-      successCode(res, `Upload successfully`);
+
+    if (userFromToken) {
+      await model.users.update({
+        where: {
+          user_id,
+        },
+        data: {
+          avatar: img.filename,
+        },
+      });
+      return successCode(res, "Upload avatar thành công!");
     }
+    return failCode(res, "Upload thất bại!");
   } catch (error) {
+    errorCode(res, "Lỗi Backend");
+  }
+};
+
+const imgUpload = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const { img_name } = req.body;
+    const user_id = getUserIDFromToken(authorization);
+    const img = req.file;
+    if (req.fileValidationError) return failCode(res, req.fileValidationError);
+    const checkIfExistUser = await model.users.findFirst({
+      where: {
+        user_id,
+      },
+    });
+    if (!img) return failCode(res, "Chưa có hình!");
+    if (checkIfExistUser) {
+      if (!img_name) return failCode(res, "Điền tên hình ảnh!");
+      const d = new Date();
+      const data = {
+        user_id,
+        img_name,
+        img_time: d,
+        path: img.filename,
+      };
+      await model.images.create({ data });
+      return successCode(res, "Upload thành công");
+    }
+    return failCode(res, "Upload không thành công!");
+  } catch (error) {
+    console.log(error);
     errorCode(res, "Lỗi Backend");
   }
 };
 
 module.exports = {
   avatarUpload,
+  imgUpload,
 };

@@ -26,8 +26,44 @@ const getUserInfoSchema = {
   },
 };
 
+const deleteUserSchema = {
+  schema: {
+    params: {
+      user_id: { type: "number" },
+    },
+  },
+};
+
+const banUserSchema = {
+  schema: {
+    params: {
+      user_id: { type: "number" },
+    },
+  },
+};
+const getImgSchema = {
+  schema: {
+    params: {
+      img_id: { type: "number" },
+    },
+  },
+};
+
+const setPermissionSchema = {
+  schema: {
+    body: {
+      user_id: { type: "number" },
+      permission_value: { type: "number" },
+    },
+  },
+};
+
 module.exports = {
   signUpSchema,
   signInSchema,
   getUserInfoSchema,
+  deleteUserSchema,
+  setPermissionSchema,
+  banUserSchema,
+  getImgSchema,
 };

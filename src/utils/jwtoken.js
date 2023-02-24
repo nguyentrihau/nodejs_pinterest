@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { errorCode, failCode } = require("../config/response");
+const { failCode } = require("../config/response");
 
 const createToken = (payload) => {
   const token = jwt.sign({ ...payload }, process.env.TOKEN_KEY, {
