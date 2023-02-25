@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"abc@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
+							"raw": "{\r\n    \"email\": \"abcd@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,7 +136,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjo0LCJpYXQiOjE2NzcyNTAzNjgsImV4cCI6MTY3NzMzNjc2OH0.Yp0aPtLq5EdTsZBL1CbhA3joj8ebNrX9_XhaOmOesNM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MzIwODg5LCJleHAiOjE2Nzc0MDcyODl9.ShmDguz_-zAFMvJ0u2HZNnHKabAzy8SfvyY6qhTLkAc",
 									"type": "string"
 								}
 							]
@@ -150,7 +150,7 @@
 									"key": "avatar",
 									"contentType": "multipart/form-data",
 									"type": "file",
-									"src": "/C:/Users/Administrator/Downloads/pexels-cesar-perez-733745.jpg"
+									"src": "/C:/Users/Administrator/Downloads/img/asdfelearning12.jpg"
 								}
 							]
 						},
@@ -304,7 +304,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MjYyNzQ2LCJleHAiOjE2NzczNDkxNDZ9.OlX9mvn6RJi7s9r-CFQ9q5aDt24OiVA1oF9qGfZTdJY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MzIwODg5LCJleHAiOjE2Nzc0MDcyODl9.ShmDguz_-zAFMvJ0u2HZNnHKabAzy8SfvyY6qhTLkAc",
 									"type": "string"
 								}
 							]
@@ -317,7 +317,12 @@
 								{
 									"key": "imgUpload",
 									"type": "file",
-									"src": "/C:/Users/Administrator/Downloads/floral-designs-3840x2160-10372.jpg"
+									"src": "/C:/Users/Administrator/Downloads/img/carousel1.png"
+								},
+								{
+									"key": "img_name",
+									"value": "My first upload imgs",
+									"type": "text"
 								}
 							]
 						},
@@ -338,7 +343,46 @@
 					"name": "getImg",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/image/8",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"image",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteimg",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzMyMjQ1NCwiZXhwIjoxNjc3NDA4ODU0fQ.L5wLL21lY1H61-BFFSwfF4n7WvAXuN33JWOvrhIBxmw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/image/delete/15",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"image",
+								"delete",
+								"15"
+							]
+						}
 					},
 					"response": []
 				}

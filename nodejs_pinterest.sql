@@ -35,8 +35,7 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `images` (`img_id`, `user_id`, `img_time`, `img_name`, `path`) VALUES
-(7,	14,	'2023-02-24',	'My first upload img',	'1677266622218_floral-designs-3840x2160-10372.jpg'),
-(8,	14,	'2023-02-24',	'My first upload img',	'1677266660050_floral-designs-3840x2160-10372.jpg');
+(15,	14,	'2023-02-25',	'My first upload imgs',	'1677321832799_carousel1.png');
 
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
@@ -81,8 +80,9 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `users` (`user_id`, `email`, `password`, `user_name`, `age`, `avatar`, `permission`) VALUES
-(14,	'abc@gmail.com',	'$2b$10$3RQSMdq.RHVWK9JVggtz/e.ToVIQK75HAhHcxZuKp3com7n7psK7.',	'Thinh',	26,	'D:\\NODEJS27bt\\NODEJS_PINTEREST/public/img/avatar/avatardefault.png',	4),
-(15,	'abcd@gmail.com',	'$2b$10$g1xDinVJAjmIaoXcAyBALuJoE4vWJQX21lgbyMQCdIYQB.HbT1M1a',	'Thinh',	26,	'D:\\NODEJS27bt\\NODEJS_PINTEREST/public/img/avatar/avatardefault.png',	3),
-(16,	'abce@gmail.com',	'$2b$10$el.91ZNXNR2N5vmIQCeyiuw9g789qVWlRqhvMgY0tAAfXOCzRDElK',	'Thinh',	26,	'D:\\NODEJS27bt\\NODEJS_PINTEREST/public/img/avatar/avatardefault.png',	0);
+(14,	'abc@gmail.com',	'$2b$10$3RQSMdq.RHVWK9JVggtz/e.ToVIQK75HAhHcxZuKp3com7n7psK7.',	'Thinh',	26,	'1677321673674_asdfelearning12.jpg',	4),
+(15,	'abcd@gmail.com',	'$2b$10$g1xDinVJAjmIaoXcAyBALuJoE4vWJQX21lgbyMQCdIYQB.HbT1M1a',	'Thinh',	26,	'avatardefault.png',	3),
+(16,	'abce@gmail.com',	'$2b$10$el.91ZNXNR2N5vmIQCeyiuw9g789qVWlRqhvMgY0tAAfXOCzRDElK',	'Thinh',	26,	'avatardefault.png	',	0),
+(17,	'abcf@gmail.com',	'$2b$10$cj.HUrUGO0scy19nblV/UOiB8lE2Z51igvO93ZA7egb1plQY1hnRy',	'Thinh',	26,	'avatardefault.png',	1);
 
--- 2023-02-25 00:58:14
+-- 2023-02-25 11:06:40
