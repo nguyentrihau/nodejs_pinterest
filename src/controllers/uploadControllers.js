@@ -3,7 +3,7 @@ const { errorCode, successCode, failCode } = require("../config/response");
 const model = new PrismaClient();
 const fs = require("fs");
 
-const { getUserIDFromToken } = require("../config/function");
+const { getUserIDFromToken, avatarPath } = require("../config/function");
 
 const avatarUpload = async (req, res) => {
   try {
@@ -18,7 +18,12 @@ const avatarUpload = async (req, res) => {
       },
     });
 
+    if (!img) return failCode(res, "Chưa có hình!");
+
     if (userFromToken) {
+      if (userFromToken.avatar !== "avatardefault.png")
+        fs.unlinkSync(avatarPath + "/" + userFromToken.avatar);
+
       await model.users.update({
         where: {
           user_id,
@@ -29,7 +34,6 @@ const avatarUpload = async (req, res) => {
       });
       return successCode(res, "Upload avatar thành công!");
     }
-    return failCode(res, "Upload thất bại!");
   } catch (error) {
     errorCode(res, "Lỗi Backend");
   }

@@ -1,11 +1,13 @@
 const { avatarUpload, imgUpload } = require("../controllers/uploadControllers");
 const { verifyToken } = require("../utils/jwtoken");
+
 const multer = require("fastify-multer");
 const {
   avatarImgCheck,
   avatarPath,
   uploadPath,
   imgCheck,
+  bannedCheck,
 } = require("../config/function");
 
 const avatarUploadMulter = multer({
@@ -41,20 +43,20 @@ const imgUploadMulter = multer({
 });
 
 const uploadRoute = async (server) => {
-  server.addHook("onRequest", verifyToken).put(
+  server.put(
     "/avatar",
     {
-      preHandler: [avatarUploadMulter.single("avatar")],
+      preHandler: [verifyToken, avatarUploadMulter.single("avatar")],
     },
     avatarUpload
   );
-  server
-    .addHook("onRequest", verifyToken)
-    .post(
-      "/img",
-      { preHandler: [imgUploadMulter.single("imgUpload")] },
-      imgUpload
-    );
+  server.post(
+    "/img",
+    {
+      preHandler: [verifyToken, imgUploadMulter.single("imgUpload")],
+    },
+    imgUpload
+  );
 };
 
 module.exports = uploadRoute;

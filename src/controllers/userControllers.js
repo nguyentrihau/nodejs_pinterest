@@ -49,7 +49,7 @@ const signUp = async (req, res) => {
       password: bcrypt.hashSync(password, 10),
       age,
       user_name,
-      avatar: `${avatarPath}/avatardefault.png`,
+      avatar: `avatardefault.png`,
     };
 
     await model.users.create({ data });
@@ -70,9 +70,9 @@ const signIn = async (req, res) => {
     });
     if (checkEmailExist) {
       if (bcrypt.compareSync(password, checkEmailExist.password)) {
+        delete checkEmailExist["password"];
         successCode(res, "Đăng nhập thành công", {
-          user_id: checkEmailExist.user_id,
-          email,
+          ...checkEmailExist,
           token: createToken({ email, user_id: checkEmailExist.user_id }),
         });
       } else failCode(res, "Email hoặc password không đúng!");

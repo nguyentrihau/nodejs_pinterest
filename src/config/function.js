@@ -83,7 +83,7 @@ const permissionCheckOnParams = async (req, res, next) => {
   next();
 };
 
-const banPermissionCheckonParams = async (req, res, next) => {
+const banPermissionCheckOnParams = async (req, res, next) => {
   const handleUserId = req.params.user_id;
   const { authorization } = req.headers;
   const currentUserId = getUserIDFromToken(authorization);
@@ -135,6 +135,18 @@ const permissionCheckInBody = async (req, res, next) => {
   next();
 };
 
+const bannedCheck = async (req, res, next) => {
+  const { authorization } = req.headers;
+  const currentUserId = getUserIDFromToken(authorization);
+  const userInfo = await model.users.findFirst({
+    where: {
+      user_id: currentUserId,
+    },
+  });
+  if (userInfo.permission !== 0) next();
+  else return failCode(res, "Banned user không thể post ảnh!");
+};
+
 module.exports = {
   parseJwt,
   getUserIDFromToken,
@@ -143,7 +155,8 @@ module.exports = {
   avatarPath,
   permissionCheckOnParams,
   permissionCheckInBody,
-  banPermissionCheckonParams,
+  banPermissionCheckOnParams,
   uploadPath,
   imgCheck,
+  bannedCheck,
 };

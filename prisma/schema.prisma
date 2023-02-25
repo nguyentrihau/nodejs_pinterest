@@ -46,23 +46,23 @@ model save {
 }
 
 model users {
-  user_id                                 Int        @id @default(autoincrement())
-  email                                   String     @db.VarChar(100)
-  password                                String     @db.VarChar(500)
-  user_name                               String     @db.VarChar(50)
-  age                                     Int
-  avatar                                  String?    @db.LongText
-  permission                              Int        @default(1)
-  comments                                comments[]
-  images                                  images[]
-  save                                    save[]
-  permission_users_permissionTopermission permission @relation("users_permissionTopermission", fields: [permission], references: [permission_value], onDelete: NoAction, onUpdate: NoAction, map: "users_ibfk_1")
+  user_id          Int        @id @default(autoincrement())
+  email            String     @db.VarChar(100)
+  password         String     @db.VarChar(500)
+  user_name        String     @db.VarChar(50)
+  age              Int
+  avatar           String?    @db.LongText
+  permission       Int        @default(1)
+  comments         comments[]
+  images           images[]
+  save             save[]
+  permission_users permission @relation("users_permission", fields: [permission], references: [permission_value], onDelete: NoAction, onUpdate: NoAction, map: "users_ibfk_1")
 
   @@index([permission], map: "permission")
 }
 
 model permission {
-  permission_name                    String  @db.VarChar(100)
-  permission_value                   Int     @id
-  users_users_permissionTopermission users[] @relation("users_permissionTopermission")
+  permission_name  String  @db.VarChar(100)
+  permission_value Int     @id
+  users_users      users[] @relation("users_permission")
 }

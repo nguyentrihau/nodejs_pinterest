@@ -1,7 +1,7 @@
 const {
   permissionCheckOnParams,
   permissionCheckInBody,
-  banPermissionCheckonParams,
+  banPermissionCheckOnParams,
 } = require("../config/function");
 const {
   signUpSchema,
@@ -51,7 +51,7 @@ const userRoute = async (server) => {
     "/banUser/:user_id",
     {
       ...banUserSchema,
-      preHandler: [verifyToken, banPermissionCheckonParams],
+      preHandler: [verifyToken, banPermissionCheckOnParams],
     },
     banUser
   );
@@ -59,7 +59,7 @@ const userRoute = async (server) => {
     "/unbannedUser/:user_id",
     {
       ...banUserSchema,
-      preHandler: [verifyToken, banPermissionCheckonParams],
+      preHandler: [verifyToken, banPermissionCheckOnParams],
     },
     unbannedUser
   );
