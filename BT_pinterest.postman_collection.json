@@ -1,0 +1,348 @@
+{
+	"info": {
+		"_postman_id": "f95ba270-654d-4e4a-88ac-c9ed7fb32b98",
+		"name": "BT_pinterest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23648949"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "signIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"abc@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/user/signIn",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"signIn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"abce@gmail.com\",\r\n    \"password\": \"Thinh123@\",\r\n    \"user_name\": \"Thinh\",\r\n    \"age\": 26\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/user/signUp",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserInfo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/getUserInfo/16",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"getUserInfo",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCurrentInfo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjo0LCJpYXQiOjE2NzcyNTcwODMsImV4cCI6MTY3NzM0MzQ4M30.QVfnAQQisPi_6neeE4LhQlA6L4W22NULkdHZ7rQDDME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/getCurrentUserInfo",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"getCurrentUserInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/getAllUsers",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"getAllUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "avatarUpload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjo0LCJpYXQiOjE2NzcyNTAzNjgsImV4cCI6MTY3NzMzNjc2OH0.Yp0aPtLq5EdTsZBL1CbhA3joj8ebNrX9_XhaOmOesNM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Downloads/pexels-cesar-perez-733745.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/upload/avatar",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"upload",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJpYXQiOjE2NzcyNjA5MTgsImV4cCI6MTY3NzM0NzMxOH0.9MudFiot90oNnVGtBmMcV0p9cxOPGWaXaxpOawfj9K4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/deleteUser/2",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"deleteUser",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setPermission",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MjYyMDU2LCJleHAiOjE2NzczNDg0NTZ9.CUzThDbOAAfs-QiVmvpuqRWjx_AwUk39LpPIJE-NERo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 2,\r\n    \"permission_value\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/user/setPermission",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"setPermission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "banUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MjYyNzQ2LCJleHAiOjE2NzczNDkxNDZ9.OlX9mvn6RJi7s9r-CFQ9q5aDt24OiVA1oF9qGfZTdJY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/banUser/16",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"banUser",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unbanUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MjYyNzQ2LCJleHAiOjE2NzczNDkxNDZ9.OlX9mvn6RJi7s9r-CFQ9q5aDt24OiVA1oF9qGfZTdJY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/unbannedUser/16",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"unbannedUser",
+								"16"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "IMG",
+			"item": [
+				{
+					"name": "imgUpload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MjYyNzQ2LCJleHAiOjE2NzczNDkxNDZ9.OlX9mvn6RJi7s9r-CFQ9q5aDt24OiVA1oF9qGfZTdJY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imgUpload",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Downloads/floral-designs-3840x2160-10372.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/upload/img",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"upload",
+								"img"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImg",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
