@@ -62,7 +62,16 @@ const imgUpload = async (req, res) => {
         path: img.filename,
       };
       await model.images.create({ data });
-      return successCode(res, "Upload thành công");
+      const imgByUserId = await model.images.findMany({
+        where: {
+          user_id,
+        },
+        orderBy: {
+          img_id: "desc",
+        },
+        take: 1,
+      });
+      return successCode(res, "Upload thành công", imgByUserId);
     }
     return failCode(res, "Upload không thành công!");
   } catch (error) {

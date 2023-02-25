@@ -5,6 +5,7 @@ const { errorCode, failCode, successCode } = require("../config/response");
 const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/jwtoken");
 const { getUserIDFromToken, avatarPath } = require("../config/function");
+const fs = require("fs");
 
 const signUp = async (req, res) => {
   try {
@@ -53,7 +54,7 @@ const signUp = async (req, res) => {
     };
 
     await model.users.create({ data });
-    successCode(res, "Tạo tài khoản thành công!");
+    successCode(res, "Tạo tài khoản thành công!", data);
   } catch (error) {
     console.log(error);
     errorCode(res, "Lỗi backend");
@@ -221,6 +222,32 @@ const unbannedUser = async (req, res) => {
   }
 };
 
+const deleteAvatar = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const currentUserId = getUserIDFromToken(authorization);
+    const userInfo = await model.users.findFirst({
+      where: {
+        user_id: currentUserId,
+      },
+    });
+    if (userInfo) {
+      fs.unlinkSync(avatarPath + "/" + userInfo.avatar);
+      await model.users.update({
+        where: {
+          user_id: currentUserId,
+        },
+        data: {
+          avatar: "avatardefault.png",
+        },
+      });
+      return successCode(res, "Xóa avatar thành công!");
+    }
+  } catch (error) {
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -231,4 +258,5 @@ module.exports = {
   setPermission,
   banUser,
   unbannedUser,
+  deleteAvatar,
 };

@@ -9,18 +9,31 @@ SET NAMES utf8mb4;
 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
-  `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `img_id` int NOT NULL,
   `comment` varchar(255) NOT NULL,
   `comment_time` datetime NOT NULL,
-  PRIMARY KEY (`id`),
+  `comment_id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`comment_id`),
   KEY `user_id` (`user_id`),
   KEY `img_id` (`img_id`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`img_id`) REFERENCES `images` (`img_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO `comments` (`user_id`, `img_id`, `comment`, `comment_time`, `comment_id`) VALUES
+(15,	24,	'Đây là comment mới',	'2023-02-25 15:45:56',	4),
+(15,	24,	'Đây là comment mới',	'2023-02-25 15:50:05',	5),
+(15,	23,	'Đây là comment mới',	'2023-02-25 16:15:29',	6),
+(15,	23,	'Đây là comment mới',	'2023-02-25 16:15:31',	7),
+(15,	24,	'Đây là comment mới',	'2023-02-25 16:15:35',	8),
+(15,	24,	'Đây là comment mới',	'2023-02-25 16:15:36',	9),
+(15,	24,	'Đây là comment mới',	'2023-02-25 16:15:37',	10),
+(15,	25,	'Đây là comment mới',	'2023-02-25 16:15:43',	11),
+(15,	25,	'Đây là comment mới',	'2023-02-25 16:17:44',	12),
+(15,	24,	'Đây là comment mới',	'2023-02-25 16:19:17',	13),
+(15,	24,	'Đây là comment mới',	'2023-02-25 16:19:18',	14),
+(15,	24,	'Đây là comment mới',	'2023-02-25 16:19:19',	15);
 
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
@@ -34,8 +47,6 @@ CREATE TABLE `images` (
   CONSTRAINT `images_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `images` (`img_id`, `user_id`, `img_time`, `img_name`, `path`) VALUES
-(15,	14,	'2023-02-25',	'My first upload imgs',	'1677321832799_carousel1.png');
 
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
@@ -44,12 +55,6 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`permission_value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `permission` (`permission_name`, `permission_value`) VALUES
-('Banned user',	0),
-('Members',	1),
-('Editors',	2),
-('Moderators',	3),
-('Administrators',	4);
 
 DROP TABLE IF EXISTS `save`;
 CREATE TABLE `save` (
@@ -79,10 +84,5 @@ CREATE TABLE `users` (
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`permission`) REFERENCES `permission` (`permission_value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `users` (`user_id`, `email`, `password`, `user_name`, `age`, `avatar`, `permission`) VALUES
-(14,	'abc@gmail.com',	'$2b$10$3RQSMdq.RHVWK9JVggtz/e.ToVIQK75HAhHcxZuKp3com7n7psK7.',	'Thinh',	26,	'1677321673674_asdfelearning12.jpg',	4),
-(15,	'abcd@gmail.com',	'$2b$10$g1xDinVJAjmIaoXcAyBALuJoE4vWJQX21lgbyMQCdIYQB.HbT1M1a',	'Thinh',	26,	'avatardefault.png',	3),
-(16,	'abce@gmail.com',	'$2b$10$el.91ZNXNR2N5vmIQCeyiuw9g789qVWlRqhvMgY0tAAfXOCzRDElK',	'Thinh',	26,	'avatardefault.png	',	0),
-(17,	'abcf@gmail.com',	'$2b$10$cj.HUrUGO0scy19nblV/UOiB8lE2Z51igvO93ZA7egb1plQY1hnRy',	'Thinh',	26,	'avatardefault.png',	1);
 
--- 2023-02-25 11:06:40
+-- 2023-02-25 16:24:29

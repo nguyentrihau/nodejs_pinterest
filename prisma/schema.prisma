@@ -8,11 +8,11 @@ datasource db {
 }
 
 model comments {
-  id           Int      @id @default(autoincrement())
   user_id      Int
   img_id       Int
   comment      String   @db.VarChar(255)
   comment_time DateTime @db.DateTime(0)
+  comment_id   Int      @id @default(autoincrement())
   users        users    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_1")
   images       images   @relation(fields: [img_id], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_2")
 

@@ -46,14 +46,22 @@ const uploadRoute = async (server) => {
   server.put(
     "/avatar",
     {
-      preHandler: [verifyToken, avatarUploadMulter.single("avatar")],
+      preHandler: [
+        verifyToken,
+        bannedCheck,
+        avatarUploadMulter.single("avatar"),
+      ],
     },
     avatarUpload
   );
   server.post(
     "/img",
     {
-      preHandler: [verifyToken, imgUploadMulter.single("imgUpload")],
+      preHandler: [
+        verifyToken,
+        bannedCheck,
+        imgUploadMulter.single("imgUpload"),
+      ],
     },
     imgUpload
   );

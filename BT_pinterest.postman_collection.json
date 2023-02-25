@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"abcd@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
+							"raw": "{\r\n    \"email\": \"xyz@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -43,7 +43,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"abce@gmail.com\",\r\n    \"password\": \"Thinh123@\",\r\n    \"user_name\": \"Thinh\",\r\n    \"age\": 26\r\n}",
+							"raw": "{\r\n    \"email\": \"xyz@gmail.com\",\r\n    \"password\": \"Thinh123@\",\r\n    \"user_name\": \"Thinh\",\r\n    \"age\": 26\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,7 +136,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MzIwODg5LCJleHAiOjE2Nzc0MDcyODl9.ShmDguz_-zAFMvJ0u2HZNnHKabAzy8SfvyY6qhTLkAc",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzMzNTAxMSwiZXhwIjoxNjc3NDIxNDExfQ.iT3O8LHxr7o20sFTua6OkTXKZTrvKX6mqOiBbFICCd8",
 									"type": "string"
 								}
 							]
@@ -150,7 +150,7 @@
 									"key": "avatar",
 									"contentType": "multipart/form-data",
 									"type": "file",
-									"src": "/C:/Users/Administrator/Downloads/img/asdfelearning12.jpg"
+									"src": "/C:/Users/Administrator/Downloads/img/330915044_560103936047481_8381406525407175534_n.png"
 								}
 							]
 						},
@@ -204,7 +204,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MjYyMDU2LCJleHAiOjE2NzczNDg0NTZ9.CUzThDbOAAfs-QiVmvpuqRWjx_AwUk39LpPIJE-NERo",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MzM0OTkxLCJleHAiOjE2Nzc0MjEzOTF9.1BGQSqTu_NOZbsD-lcfsxiZDY2BGOLlM_LalAhwE2pM",
 									"type": "string"
 								}
 							]
@@ -213,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user_id\": 2,\r\n    \"permission_value\": 3\r\n}",
+							"raw": "{\r\n    \"user_id\": 15,\r\n    \"permission_value\": 3\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -278,14 +278,42 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/user/unbannedUser/16",
+							"raw": "{{domain}}/user/unbannedUser/15",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"user",
 								"unbannedUser",
-								"16"
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAvatar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzMzNjkyMSwiZXhwIjoxNjc3NDIzMzIxfQ.2MF2e1IWWsxfzDarpMjH7yqQ-VI87acFUYNKw7evOm0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/deleteAvatar",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"deleteAvatar"
 							]
 						}
 					},
@@ -297,6 +325,41 @@
 			"name": "IMG",
 			"item": [
 				{
+					"name": "getAllImg",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/image",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImg",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/image/24",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"image",
+								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "imgUpload",
 					"request": {
 						"auth": {
@@ -304,7 +367,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3MzIwODg5LCJleHAiOjE2Nzc0MDcyODl9.ShmDguz_-zAFMvJ0u2HZNnHKabAzy8SfvyY6qhTLkAc",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzMzNjkyMSwiZXhwIjoxNjc3NDIzMzIxfQ.2MF2e1IWWsxfzDarpMjH7yqQ-VI87acFUYNKw7evOm0",
 									"type": "string"
 								}
 							]
@@ -340,24 +403,6 @@
 					"response": []
 				},
 				{
-					"name": "getImg",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/image/8",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"image",
-								"8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "deleteimg",
 					"request": {
 						"auth": {
@@ -365,7 +410,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzMyMjQ1NCwiZXhwIjoxNjc3NDA4ODU0fQ.L5wLL21lY1H61-BFFSwfF4n7WvAXuN33JWOvrhIBxmw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzMzNjkyMSwiZXhwIjoxNjc3NDIzMzIxfQ.2MF2e1IWWsxfzDarpMjH7yqQ-VI87acFUYNKw7evOm0",
 									"type": "string"
 								}
 							]
@@ -373,14 +418,85 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/image/delete/15",
+							"raw": "{{domain}}/image/delete/22",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"image",
 								"delete",
-								"15"
+								"22"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "postComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOCwiaWF0IjoxNjc3MzQxOTUxLCJleHAiOjE2Nzc0MjgzNTF9.snspDvEtC1tMDe_0yJYtNzoE9mahKU5Xxkq03q4Wrmc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"img_id\": 24,\r\n    \"comment_value\": \"Đây là comment mới\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/comment/post",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOCwiaWF0IjoxNjc3MzQyMDk3LCJleHAiOjE2Nzc0Mjg0OTd9.bMlCD_RzkzU1r2uM6luMhGAnETAenKNz0zF670c3yMY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment/delete/17",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment",
+								"delete",
+								"17"
 							]
 						}
 					},

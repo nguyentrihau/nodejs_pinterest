@@ -21,6 +21,7 @@ const {
   setPermission,
   banUser,
   unbannedUser,
+  deleteAvatar,
 } = require("../controllers/userControllers");
 const { verifyToken } = require("../utils/jwtoken");
 
@@ -62,6 +63,13 @@ const userRoute = async (server) => {
       preHandler: [verifyToken, banPermissionCheckOnParams],
     },
     unbannedUser
+  );
+  server.put(
+    "/deleteAvatar",
+    {
+      preHandler: [verifyToken],
+    },
+    deleteAvatar
   );
 };
 

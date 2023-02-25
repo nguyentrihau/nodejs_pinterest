@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
-const { uploadPath, getUserIDFromToken } = require("../config/function");
+const { uploadPath } = require("../config/function");
 const { errorCode, successCode, failCode } = require("../config/response");
+const fs = require("fs");
 const model = new PrismaClient();
 
 const getImg = async (req, res) => {
@@ -26,6 +27,7 @@ const getImg = async (req, res) => {
         },
         comments: {
           select: {
+            comment_id: true,
             comment: true,
             comment_time: true,
             users: {
@@ -41,6 +43,24 @@ const getImg = async (req, res) => {
                 avatar: true,
               },
             },
+          },
+        },
+        save: {
+          select: {
+            users: {
+              select: {
+                user_id: true,
+                user_name: true,
+                email: true,
+                avatar: true,
+                permission_users: {
+                  select: {
+                    permission_name: true,
+                  },
+                },
+              },
+            },
+            images: true,
           },
         },
       },
@@ -62,25 +82,50 @@ const getImg = async (req, res) => {
 const deleteImg = async (req, res) => {
   try {
     const { img_id } = req.params;
-    const { authorization } = req.headers;
-    const currentUserId = getUserIDFromToken(authorization); // id người đang đi xóa
-    const imgAuthor = await model.images.findFirst({
+    const findImg = await model.images.findFirst({
       where: {
-        img_id: Number(img_id),
+        img_id,
       },
-      select: {
+    });
+    if (!findImg) return failCode(res, "Không tìm thấy hình ảnh này!");
+    fs.unlinkSync(uploadPath + "/" + findImg.path);
+    await model.comments.deleteMany({
+      where: {
+        img_id,
+      },
+    });
+    await model.save.deleteMany({
+      where: {
+        img_id,
+      },
+    });
+    await model.images.delete({
+      where: {
+        img_id,
+      },
+    });
+    successCode(res, "Xóa thành công!");
+  } catch (error) {
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
+const getAllImg = async (req, res) => {
+  try {
+    const data = await model.images.findMany({
+      include: {
         users: {
           select: {
             user_id: true,
+            user_name: true,
+            email: true,
+            avatar: true,
           },
         },
       },
     });
-    if (currentUserId === imgAuthor.users.user_id)
-      return successCode(res, "Đây là author");
-    else return failCode(res, "Không phải là author!");
+    return successCode(res, "Thành công", data);
   } catch (error) {
-    console.log(error);
     errorCode(res, "Lỗi backend!");
   }
 };
@@ -88,4 +133,5 @@ const deleteImg = async (req, res) => {
 module.exports = {
   getImg,
   deleteImg,
+  getAllImg,
 };
