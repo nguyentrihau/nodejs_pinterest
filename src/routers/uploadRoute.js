@@ -8,8 +8,8 @@ const {
   avatarPath,
   uploadPath,
   imgCheck,
-  bannedCheck,
 } = require("../config/function");
+const { bannedCheck } = require("../config/authorization/adminAuthorization");
 
 const avatarUploadMulter = multer({
   storage: multer.diskStorage({
@@ -47,23 +47,22 @@ const uploadRoute = async (server) => {
   server
     .decorate("verifyToken", verifyToken)
     .decorate("bannedCheck", bannedCheck)
-    .register(auth)
-    .after(() => {
-      server.put(
-        "/avatar",
-        {
-          preHandler: [
-            server.auth([server.verifyToken, server.bannedCheck], {
-              relation: "and",
-            }),
-            avatarUploadMulter.single("avatar"),
-          ],
-        },
-        avatarUpload
-      );
-    });
+    .register(auth);
 
   server.after(() => {
+    server.put(
+      "/avatar",
+      {
+        preHandler: [
+          server.auth([server.verifyToken, server.bannedCheck], {
+            relation: "and",
+          }),
+          avatarUploadMulter.single("avatar"),
+        ],
+      },
+      avatarUpload
+    );
+
     server.post(
       "/img",
       {

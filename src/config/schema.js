@@ -77,6 +77,15 @@ const postCommentSchema = {
   },
 };
 
+const editCommentSchema = {
+  schema: {
+    body: {
+      comment_id: { type: "number" },
+      comment_value: { type: "string" },
+    },
+  },
+};
+
 const deleteCommentSchema = {
   schema: {
     params: {
@@ -86,7 +95,15 @@ const deleteCommentSchema = {
     },
   },
 };
-
+const saveImgSchema = {
+  schema: {
+    params: {
+      img_id: {
+        type: "number",
+      },
+    },
+  },
+};
 module.exports = {
   signUpSchema,
   signInSchema,
@@ -98,4 +115,6 @@ module.exports = {
   deleteImgSchema,
   postCommentSchema,
   deleteCommentSchema,
+  editCommentSchema,
+  saveImgSchema,
 };

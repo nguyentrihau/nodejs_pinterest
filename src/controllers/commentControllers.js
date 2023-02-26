@@ -14,6 +14,7 @@ const postComment = async (req, res) => {
       },
     });
     if (!imgInfo) return failCode(res, "Không tìm ra ảnh này!");
+    if (!comment_value) return failCode(res, "Không được để trống!");
     const data = {
       user_id: currentUserId,
       img_id,
@@ -23,7 +24,74 @@ const postComment = async (req, res) => {
     await model.comments.create({
       data,
     });
-    successCode(res, "Comment thành công!", data);
+    const newComment = await model.comments.findFirst({
+      where: {
+        img_id,
+        user_id: currentUserId,
+      },
+      select: {
+        comment_id: true,
+        comment: true,
+        comment_time: true,
+        images: {
+          select: {
+            img_id: true,
+            img_name: true,
+            img_time: true,
+            path: true,
+          },
+        },
+      },
+      orderBy: {
+        comment_time: "desc",
+      },
+      take: 1,
+    });
+    successCode(res, "Comment thành công!", newComment);
+  } catch (error) {
+    console.log(error);
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
+const editComment = async (req, res) => {
+  try {
+    const { comment_value, comment_id } = req.body;
+    const currentComment = await model.comments.findFirst({
+      where: {
+        comment_id,
+      },
+    });
+
+    if (currentComment) {
+      await model.comments.update({
+        where: {
+          comment_id,
+        },
+        data: {
+          comment: comment_value,
+        },
+      });
+      const newComment = await model.comments.findFirst({
+        where: {
+          comment_id,
+        },
+        select: {
+          comment_id: true,
+          comment: true,
+          comment_time: true,
+          images: {
+            select: {
+              img_id: true,
+              img_name: true,
+              img_time: true,
+              path: true,
+            },
+          },
+        },
+      });
+      successCode(res, "Sửa comment thành công", newComment);
+    }
   } catch (error) {
     console.log(error);
     errorCode(res, "Lỗi backend!");
@@ -33,11 +101,12 @@ const postComment = async (req, res) => {
 const deleteComment = async (req, res) => {
   try {
     const { comment_id } = req.params;
-    await model.comments.delete({
+    const comment = await model.comments.delete({
       where: {
         comment_id,
       },
     });
+    if (!comment) return failCode(res, "Không tìm ra comment này!");
     return successCode(res, "Xóa comment thành công!");
   } catch (error) {
     console.log(error);
@@ -48,4 +117,5 @@ const deleteComment = async (req, res) => {
 module.exports = {
   postComment,
   deleteComment,
+  editComment,
 };

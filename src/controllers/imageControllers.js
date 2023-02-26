@@ -87,7 +87,6 @@ const deleteImg = async (req, res) => {
         img_id,
       },
     });
-    if (!findImg) return failCode(res, "Không tìm thấy hình ảnh này!");
     fs.unlinkSync(uploadPath + "/" + findImg.path);
     await model.comments.deleteMany({
       where: {
@@ -106,6 +105,7 @@ const deleteImg = async (req, res) => {
     });
     successCode(res, "Xóa thành công!");
   } catch (error) {
+    console.log(error);
     errorCode(res, "Lỗi backend!");
   }
 };

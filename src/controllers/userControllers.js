@@ -165,7 +165,7 @@ const setPermission = async (req, res) => {
     const checkIfExistUser = await model.users.findFirst({
       where: { user_id },
     });
-
+    if (!checkIfExistUser) return failCode(res, "Không tìm thấy user này!");
     await model.users.update({
       where: {
         user_id,
@@ -232,6 +232,8 @@ const deleteAvatar = async (req, res) => {
       },
     });
     if (userInfo) {
+      if (userInfo.avatar === "avatardefault.png")
+        return failCode(res, "Không có avatar để xóa!");
       fs.unlinkSync(avatarPath + "/" + userInfo.avatar);
       await model.users.update({
         where: {
@@ -244,6 +246,7 @@ const deleteAvatar = async (req, res) => {
       return successCode(res, "Xóa avatar thành công!");
     }
   } catch (error) {
+    console.log(error);
     errorCode(res, "Lỗi backend!");
   }
 };
