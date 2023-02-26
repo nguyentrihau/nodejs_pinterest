@@ -21,7 +21,8 @@ const verifyToken = (req, res, next) => {
       failCode(res, "Token không hợp lệ!");
       return;
     }
-    if (checkToken(token)) next();
+    if (!checkToken(token)) return failCode(res, "Token không hợp lệ!");
+    next();
   } catch (error) {
     failCode(res, "Token không hợp lệ!");
   }

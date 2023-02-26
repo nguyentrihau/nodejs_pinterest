@@ -32,7 +32,7 @@ const avatarUpload = async (req, res) => {
           avatar: img.filename,
         },
       });
-      return successCode(res, "Upload avatar thành công!");
+      return successCode(res, "Upload avatar thành công!", userFromToken);
     }
   } catch (error) {
     errorCode(res, "Lỗi Backend");

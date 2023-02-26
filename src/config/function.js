@@ -135,7 +135,7 @@ const permissionCheckInBody = async (req, res, next) => {
   next();
 };
 
-const bannedCheck = async (req, res) => {
+const bannedCheck = async (req, res, next) => {
   const { authorization } = req.headers;
   const currentUserId = getUserIDFromToken(authorization);
   const userInfo = await model.users.findFirst({
