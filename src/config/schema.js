@@ -104,6 +104,31 @@ const saveImgSchema = {
     },
   },
 };
+const getCommentHistoryByIDSchema = {
+  schema: {
+    params: {
+      user_id: { type: "number" },
+    },
+  },
+};
+const getImgByUserIDSchema = {
+  schema: {
+    params: {
+      user_id: {
+        type: "number",
+      },
+    },
+  },
+};
+const getImgByNameSchema = {
+  schema: {
+    params: {
+      user_id: {
+        type: "number",
+      },
+    },
+  },
+};
 module.exports = {
   signUpSchema,
   signInSchema,
@@ -117,4 +142,7 @@ module.exports = {
   deleteCommentSchema,
   editCommentSchema,
   saveImgSchema,
+  getCommentHistoryByIDSchema,
+  getImgByUserIDSchema,
+  getImgByNameSchema,
 };

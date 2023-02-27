@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
+const { checkToken } = require("../../utils/jwtoken");
 const { getUserIDFromToken } = require("../function");
-const { failCode } = require("../response");
+const { failCode, errorCode } = require("../response");
 const { adminAuth } = require("./adminAuthorization");
 const model = new PrismaClient();
 const deleteImgAuthorCheck = async (req, res) => {
@@ -33,6 +34,24 @@ const deleteImgAuthorCheck = async (req, res) => {
   }
 };
 
+const getImgAuthorization = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    if (authorization) {
+      const token = authorization.split("Bearer ")[1];
+      if (!token) {
+        failCode(res, "Token không hợp lệ!");
+        return;
+      }
+      if (!checkToken(token)) return failCode(res, "Token không hợp lệ!");
+    }
+  } catch (error) {
+    console.log(error);
+    failCode(res, "Token không hợp lệ!");
+  }
+};
+
 module.exports = {
   deleteImgAuthorCheck,
+  getImgAuthorization,
 };

@@ -1,5 +1,8 @@
 const auth = require("@fastify/auth");
-const { bannedCheck } = require("../config/authorization/adminAuthorization");
+const {
+  bannedCheck,
+  checkPermissionByToken,
+} = require("../config/authorization/adminAuthorization");
 const {
   deleteCommentAuthorCheck,
   editCommentAuthorCheck,
@@ -8,11 +11,14 @@ const {
   postCommentSchema,
   deleteCommentSchema,
   editCommentSchema,
+  getCommentHistoryByIDSchema,
 } = require("../config/schema");
 const {
   postComment,
   deleteComment,
   editComment,
+  getCommentHistoryByID,
+  getCommentHistory,
 } = require("../controllers/commentControllers");
 const { verifyToken } = require("../utils/jwtoken");
 
@@ -22,6 +28,7 @@ const commentRoute = async (server) => {
     .decorate("deleteCommentAuthorCheck", deleteCommentAuthorCheck)
     .decorate("editCommentAuthorCheck", editCommentAuthorCheck)
     .decorate("bannedCheck", bannedCheck)
+    .decorate("checkPermissionByToken", checkPermissionByToken)
     .register(auth);
   server.after(() => {
     server.post(
@@ -63,6 +70,26 @@ const commentRoute = async (server) => {
         ),
       },
       deleteComment
+    );
+    server.get(
+      "/history/:user_id",
+      {
+        ...getCommentHistoryByIDSchema,
+        preHandler: server.auth(
+          [server.verifyToken, server.checkPermissionByToken],
+          {
+            relation: "and",
+          }
+        ),
+      },
+      getCommentHistoryByID
+    );
+    server.get(
+      "/history",
+      {
+        preHandler: server.auth([server.verifyToken]),
+      },
+      getCommentHistory
     );
   });
 };

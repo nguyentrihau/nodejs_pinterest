@@ -54,6 +54,43 @@ const imgCheck = (req, file, cb) => {
   cb(null, true);
 };
 
+const imgResponseObjectHandle = (object) => {
+  object = {
+    ...object,
+    author: object.users,
+  };
+  object = {
+    ...object,
+    path: uploadPath + "/" + object.path,
+  };
+  object.author = {
+    ...object.author,
+    avatar: avatarPath + "/" + object.author.avatar,
+  };
+  delete object["users"];
+  delete object["user_id"];
+  delete object.author["permission"];
+  delete object.author["password"];
+  return object;
+};
+
+const cmtResponseHandle = (object) => {
+  object = {
+    ...object,
+    author: object.users,
+  };
+  object.author = {
+    ...object.author,
+    avatar: avatarPath + "/" + object.author.avatar,
+  };
+  delete object.author["password"];
+  delete object.author["permission"];
+  delete object["user_id"];
+  delete object["img_id"];
+  delete object["users"];
+  return object;
+};
+
 module.exports = {
   parseJwt,
   getUserIDFromToken,
@@ -62,4 +99,6 @@ module.exports = {
   avatarPath,
   uploadPath,
   imgCheck,
+  imgResponseObjectHandle,
+  cmtResponseHandle,
 };

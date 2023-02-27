@@ -38,7 +38,8 @@ INSERT INTO `comments` (`user_id`, `img_id`, `comment`, `comment_time`, `comment
 (15,	56,	'comment mới tinh',	'2023-02-26 17:23:03',	39),
 (15,	56,	'comment mới tinh',	'2023-02-26 17:25:03',	40),
 (15,	56,	'comment mới tinh',	'2023-02-26 17:25:45',	41),
-(15,	56,	'comment mới tinh',	'2023-02-26 17:26:43',	42);
+(15,	56,	'comment mới tinh',	'2023-02-26 17:26:43',	42),
+(18,	56,	'comment mới tinh',	'2023-02-27 14:31:10',	43);
 
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
@@ -57,7 +58,8 @@ INSERT INTO `images` (`img_id`, `user_id`, `img_time`, `img_name`, `path`) VALUE
 (57,	18,	'2023-02-26',	'My first upload imgs',	'1677427047916_avatardefault.png'),
 (58,	18,	'2023-02-26',	'My first upload imgs',	'1677427055550_avatardefault.png'),
 (59,	18,	'2023-02-26',	'My first upload imgs',	'1677427697053_avatardefault.png'),
-(60,	18,	'2023-02-26',	'My first upload imgs',	'1677427976548_avatardefault.png');
+(60,	18,	'2023-02-26',	'My first upload imgs',	'1677427976548_avatardefault.png'),
+(61,	15,	'2023-02-27',	'My first upload imgs',	'1677517216939_pexels-cesar-perez-733745.jpg');
 
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
@@ -86,6 +88,10 @@ CREATE TABLE `save` (
   CONSTRAINT `save_ibfk_2` FOREIGN KEY (`img_id`) REFERENCES `images` (`img_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO `save` (`id`, `user_id`, `img_id`, `save_time`) VALUES
+(6,	18,	56,	'2023-02-27 11:56:47'),
+(7,	18,	57,	'2023-02-27 12:33:28'),
+(8,	18,	61,	'2023-02-27 17:00:41');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -108,4 +114,4 @@ INSERT INTO `users` (`user_id`, `email`, `password`, `user_name`, `age`, `avatar
 (17,	'abcf@gmail.com',	'$2b$10$cj.HUrUGO0scy19nblV/UOiB8lE2Z51igvO93ZA7egb1plQY1hnRy',	'Thinh',	26,	'avatardefault.png',	1),
 (18,	'xyz@gmail.com',	'$2b$10$s5YIM6GJhXR3cpk9Jr7Mpefcwl6jSmI8T6HygJE35KgoWnm8q1PM6',	'Thinh',	26,	'avatardefault.png',	1);
 
--- 2023-02-26 18:40:10
+-- 2023-02-27 18:06:31

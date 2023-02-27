@@ -4,7 +4,11 @@ const { passwordRegExp, EmailRegExp } = require("../config/regExp");
 const { errorCode, failCode, successCode } = require("../config/response");
 const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/jwtoken");
-const { getUserIDFromToken, avatarPath } = require("../config/function");
+const {
+  getUserIDFromToken,
+  avatarPath,
+  uploadPath,
+} = require("../config/function");
 const fs = require("fs");
 
 const signUp = async (req, res) => {
@@ -93,12 +97,57 @@ const getUserInfo = async (req, res) => {
       where: {
         user_id,
       },
+      select: {
+        user_name: true,
+        user_id: true,
+        avatar: true,
+        save: {
+          select: {
+            images: {
+              include: {
+                users: {
+                  include: {
+                    permission_users: {
+                      select: {
+                        permission_name: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
+    // for (i=0;i < checkIfExist.length;i++){
+    //   checkIfExist[i] =
+    // }
+
+    for (let key in checkIfExist.save) {
+      checkIfExist.save[key] = {
+        ...checkIfExist.save[key].images,
+      };
+      checkIfExist.save[key] = {
+        ...checkIfExist.save[key],
+        path: uploadPath + "/" + checkIfExist.save[key].path,
+      };
+      checkIfExist.save[key] = {
+        ...checkIfExist.save[key],
+        users: {
+          ...checkIfExist.save[key].users,
+          avatar: avatarPath + "/" + checkIfExist.save[key].users.avatar,
+        },
+      };
+      delete checkIfExist.save[key].users["password"];
+      delete checkIfExist.save[key].users["permission"];
+    }
+
     if (checkIfExist) {
       delete checkIfExist["password"];
       successCode(res, "Lấy thông tin thành công", {
         ...checkIfExist,
-        avatar: avatarPath + checkIfExist.avatar,
+        avatar: avatarPath + "/" + checkIfExist.avatar,
         status: checkIfExist.permission === 0 ? "Banned" : "Unbanned",
       });
     } else failCode(res, "Không tìm thấy user này!");
@@ -116,13 +165,59 @@ const getCurrentUserInfo = async (req, res) => {
         where: {
           user_id,
         },
+        include: {
+          permission_users: {
+            select: {
+              permission_name: true,
+            },
+          },
+          save: {
+            select: {
+              images: {
+                include: {
+                  users: {
+                    include: {
+                      permission_users: {
+                        select: {
+                          permission_name: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       });
-      if (data)
+      if (data) {
+        for (let key in data.save) {
+          data.save[key] = {
+            ...data.save[key].images,
+          };
+          data.save[key] = {
+            ...data.save[key],
+            path: uploadPath + "/" + data.save[key].path,
+          };
+          data.save[key].users = {
+            ...data.save[key].users,
+            avatar: avatarPath + "/" + data.save[key].users.avatar,
+          };
+          data.save[key] = {
+            ...data.save[key],
+            author: data.save[key].users,
+          };
+          delete data.save[key]["users"];
+          delete data.save[key].author["permission"];
+          delete data.save[key]["user_id"];
+          delete data.save[key].author["password"];
+        }
+        delete data["permission"];
         successCode(res, "Lấy thông tin thành công!", {
           ...data,
           avatar: avatarPath + data.avatar,
         });
-      else failCode(res, "Lỗi data");
+      } else failCode(res, "Lỗi data");
     } else failCode(res, "Không tìm thấy user");
   } catch (error) {
     console.log(error);
@@ -132,7 +227,23 @@ const getCurrentUserInfo = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const data = await model.users.findMany();
+    const data = await model.users.findMany({
+      include: {
+        permission_users: {
+          select: {
+            permission_name: true,
+          },
+        },
+      },
+    });
+    for (let key in data) {
+      data[key] = {
+        ...data[key],
+        avatar: avatarPath + "/" + data[key].avatar,
+      };
+      delete data[key]["password"];
+      delete data[key]["permission"];
+    }
     successCode(res, "Thành công!", data);
   } catch (error) {
     errorCode(res, "Lỗi backend!");

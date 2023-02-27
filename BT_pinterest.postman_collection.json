@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"abcd@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
+							"raw": "{\r\n    \"email\": \"xyz@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -90,7 +90,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzQzMDk4OCwiZXhwIjoxNjc3NTE3Mzg4fQ.mcsnLzpNbOP7h3W8lh2eJPVmw0M6SqnB5xUhAgkoJJI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOCwiaWF0IjoxNjc3NDk4OTk3LCJleHAiOjE2Nzc1ODUzOTd9.oCd4UM53UzRfjxhdvJH-O0xImwk98adKh25iVaD_MqM",
 									"type": "string"
 								}
 							]
@@ -342,8 +342,18 @@
 					"response": []
 				},
 				{
-					"name": "getImg",
+					"name": "getImgID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3NTAxNTI5LCJleHAiOjE2Nzc1ODc5Mjl9.nNfWKmJt9W4CvNZn0_4cKNWCQumRxT-cFU2DKvZxzQI",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -367,7 +377,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOCwiaWF0IjoxNjc3NDI2MTY5LCJleHAiOjE2Nzc1MTI1Njl9.dDGmsg3xeWdoh5fqnHyi8aVo-HkNBVBQ1hxCDcArXvo",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzUxNzIwMSwiZXhwIjoxNjc3NjAzNjAxfQ.tRlI9pBV5HQoFqUrWYA2LVW77FJ61ZCbcr4PsejCAQ0",
 									"type": "string"
 								}
 							]
@@ -380,7 +390,7 @@
 								{
 									"key": "imgUpload",
 									"type": "file",
-									"src": "/C:/Users/Administrator/Downloads/avatardefault.png"
+									"src": "/C:/Users/Administrator/Downloads/pexels-cesar-perez-733745.jpg"
 								},
 								{
 									"key": "img_name",
@@ -430,6 +440,49 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getImgByUserID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/image/getImgByUserID/18",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"image",
+								"getImgByUserID",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImgByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/image/getImgByName?keyword=MY",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"image",
+								"getImgByName"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "MY"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -444,7 +497,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzQzMDk4OCwiZXhwIjoxNjc3NTE3Mzg4fQ.mcsnLzpNbOP7h3W8lh2eJPVmw0M6SqnB5xUhAgkoJJI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOCwiaWF0IjoxNjc3NTA4MjU4LCJleHAiOjE2Nzc1OTQ2NTh9.VXDJxLJMOkp6k2ZEZAPoT4vLYCNwGbfr5dZhjunKlIw",
 									"type": "string"
 								}
 							]
@@ -538,6 +591,63 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getCommentHistory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzUwNzE3NywiZXhwIjoxNjc3NTkzNTc3fQ.BTswZViAtvSVAGtgt_LUrmM5ku5IvyhXFkjJQuAj3uc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment/history",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentHistoryByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3NTA3ODM0LCJleHAiOjE2Nzc1OTQyMzR9.ZpQ-2rKabqpzL7JzBH3E6boXruS5dPv8zTcYJ21HeV4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment/history/18",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment",
+								"history",
+								"18"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -555,7 +665,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzQzMDk4OCwiZXhwIjoxNjc3NTE3Mzg4fQ.mcsnLzpNbOP7h3W8lh2eJPVmw0M6SqnB5xUhAgkoJJI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOCwiaWF0IjoxNjc3NTE3MjI5LCJleHAiOjE2Nzc2MDM2Mjl9.6XKY5BwEmarezkf0Ula1sBOJZdNf-IivAjN2fMtnLNg",
 									"type": "string"
 								}
 							]
@@ -567,14 +677,14 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{domain}}/user/save/56",
+							"raw": "{{domain}}/user/save/61",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"user",
 								"save",
-								"56"
+								"61"
 							]
 						}
 					},
@@ -588,7 +698,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzQzMDk4OCwiZXhwIjoxNjc3NTE3Mzg4fQ.mcsnLzpNbOP7h3W8lh2eJPVmw0M6SqnB5xUhAgkoJJI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3NTAxNTI5LCJleHAiOjE2Nzc1ODc5Mjl9.nNfWKmJt9W4CvNZn0_4cKNWCQumRxT-cFU2DKvZxzQI",
 									"type": "string"
 								}
 							]

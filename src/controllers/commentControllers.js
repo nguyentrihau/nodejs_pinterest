@@ -113,9 +113,85 @@ const deleteComment = async (req, res) => {
     errorCode(res, "Lỗi backend!");
   }
 };
+const getCommentHistoryByID = async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const checkIfExist = await model.users.findFirst({
+      where: {
+        user_id,
+      },
+    });
+    if (!checkIfExist) return failCode(res, "không tìm thấy user nay");
+    let dataComment = await model.comments.findMany({
+      where: {
+        user_id,
+      },
+      select: {
+        comment: true,
+        comment_id: true,
+        comment_time: true,
+        images: {
+          include: {
+            users: true,
+          },
+        },
+      },
+    });
 
+    for (let value of dataComment) {
+      delete value.images.users["password"];
+    }
+
+    for (let i = 0; i < dataComment.length; i++) {
+      dataComment[i] = {
+        ...dataComment[i],
+        images: {
+          ...dataComment[i].images,
+          author: dataComment[i].images.users,
+        },
+      };
+      delete dataComment[i].images["users"];
+    }
+
+    successCode(res, "tìm comment thành công", dataComment);
+  } catch (error) {
+    console.log(error);
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
+const getCommentHistory = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const currentUserId = getUserIDFromToken(authorization);
+    const commentHistory = await model.comments.findMany({
+      where: {
+        user_id: currentUserId,
+      },
+      include: {
+        images: {
+          include: {
+            users: true,
+          },
+        },
+      },
+    });
+    for (let value of commentHistory) {
+      delete value["user_id"];
+      delete value.images["user_id"];
+      delete value.images.users["password"];
+    }
+
+    successCode(res, "Thành Công!", commentHistory);
+  } catch (error) {
+    console.log(error);
+    errorCode(res, "Lỗi backend!");
+  }
+};
 module.exports = {
   postComment,
   deleteComment,
   editComment,
+  getCommentHistoryByID,
+  getCommentHistory,
 };
