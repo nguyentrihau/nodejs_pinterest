@@ -51,7 +51,32 @@ const getImgAuthorization = async (req, res) => {
   }
 };
 
+const imgUpdateAuthorization = async (req, res) => {
+  const { authorization } = req.headers;
+  const { img_id } = req.params;
+  const currentUserId = getUserIDFromToken(authorization);
+  try {
+    const edittingImg = await model.images.findUnique({
+      where: {
+        img_id: Number(img_id),
+      },
+    });
+    let message;
+    if (!edittingImg) return (message = "Không tìm ra ảnh này!");
+    if (!(await adminAuth(req))) {
+      // nếu ko phải là admin -> check author
+      if (edittingImg.user_id !== currentUserId)
+        message = "Không được sửa ảnh của người khác!";
+    }
+    if (message) return failCode(res, message);
+  } catch (error) {
+    console.log(error);
+    failCode(res, "Token không hợp lệ!");
+  }
+};
+
 module.exports = {
   deleteImgAuthorCheck,
   getImgAuthorization,
+  imgUpdateAuthorization,
 };

@@ -22,10 +22,17 @@ const {
   banUser,
   unbannedUser,
   deleteAvatar,
+  userUpdate,
 } = require("../controllers/userControllers");
 const { verifyToken } = require("../utils/jwtoken");
 const auth = require("@fastify/auth");
-const { unSaveImg, saveImg } = require("../controllers/saveControllers");
+const {
+  unSaveImg,
+  saveImg,
+  getSaveHistory,
+  getSaveHistoryByID,
+} = require("../controllers/saveControllers");
+const { avatarUploadMulter } = require("../config/multer/avatarUploadMulter");
 
 const userRoute = async (server) => {
   server
@@ -111,13 +118,38 @@ const userRoute = async (server) => {
       },
       unSaveImg
     );
+    server.put(
+      "/update",
+      {
+        preHandler: [
+          server.auth([server.verifyToken, server.bannedCheck], {
+            relation: "and",
+          }),
+          avatarUploadMulter.single("avatar"),
+        ],
+      },
+      userUpdate
+    );
+    server.delete(
+      "/deleteUser/:user_id",
+      {
+        ...deleteUserSchema,
+        preHandler: server.auth(
+          [server.verifyToken, server.checkPermissionByToken],
+          { relation: "and" }
+        ),
+      },
+      deleteUser
+    );
+    server.get(
+      "/getSaveHistory",
+      {
+        preHandler: server.auth([server.verifyToken]),
+      },
+      getSaveHistory
+    );
+    server.get("/getSaveHistoryByID/:user_id", {}, getSaveHistoryByID);
   });
-
-  // server.delete(
-  //   "/deleteUser/:user_id",
-  //   { ...deleteUserSchema, preHandler: [verifyToken, permissionCheckOnParams] },
-  //   deleteUser
-  // );
 };
 
 module.exports = userRoute;

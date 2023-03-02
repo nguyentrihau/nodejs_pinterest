@@ -8,6 +8,8 @@ const {
   getUserIDFromToken,
   avatarPath,
   uploadPath,
+  userResponseHandle,
+  imgResponseObjectHandle,
 } = require("../config/function");
 const fs = require("fs");
 
@@ -68,14 +70,22 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const checkEmailExist = await model.users.findFirst({
+    let checkEmailExist = await model.users.findFirst({
       where: {
         email,
       },
+      include: {
+        permission_users: {
+          select: {
+            permission_name: true,
+          },
+        },
+      },
     });
+
     if (checkEmailExist) {
       if (bcrypt.compareSync(password, checkEmailExist.password)) {
-        delete checkEmailExist["password"];
+        checkEmailExist = userResponseHandle(checkEmailExist);
         successCode(res, "Đăng nhập thành công", {
           ...checkEmailExist,
           token: createToken({ email, user_id: checkEmailExist.user_id }),
@@ -93,63 +103,22 @@ const signIn = async (req, res) => {
 const getUserInfo = async (req, res) => {
   try {
     const { user_id } = req.params;
-    const checkIfExist = await model.users.findFirst({
+    let checkIfExist = await model.users.findFirst({
       where: {
         user_id,
       },
-      select: {
-        user_name: true,
-        user_id: true,
-        avatar: true,
-        save: {
+      include: {
+        permission_users: {
           select: {
-            images: {
-              include: {
-                users: {
-                  include: {
-                    permission_users: {
-                      select: {
-                        permission_name: true,
-                      },
-                    },
-                  },
-                },
-              },
-            },
+            permission_name: true,
           },
         },
       },
     });
-    // for (i=0;i < checkIfExist.length;i++){
-    //   checkIfExist[i] =
-    // }
-
-    for (let key in checkIfExist.save) {
-      checkIfExist.save[key] = {
-        ...checkIfExist.save[key].images,
-      };
-      checkIfExist.save[key] = {
-        ...checkIfExist.save[key],
-        path: uploadPath + "/" + checkIfExist.save[key].path,
-      };
-      checkIfExist.save[key] = {
-        ...checkIfExist.save[key],
-        users: {
-          ...checkIfExist.save[key].users,
-          avatar: avatarPath + "/" + checkIfExist.save[key].users.avatar,
-        },
-      };
-      delete checkIfExist.save[key].users["password"];
-      delete checkIfExist.save[key].users["permission"];
-    }
-
+    checkIfExist = userResponseHandle(checkIfExist);
     if (checkIfExist) {
       delete checkIfExist["password"];
-      successCode(res, "Lấy thông tin thành công", {
-        ...checkIfExist,
-        avatar: avatarPath + "/" + checkIfExist.avatar,
-        status: checkIfExist.permission === 0 ? "Banned" : "Unbanned",
-      });
+      successCode(res, "Lấy thông tin thành công", checkIfExist);
     } else failCode(res, "Không tìm thấy user này!");
   } catch (error) {
     console.log(error);
@@ -171,53 +140,14 @@ const getCurrentUserInfo = async (req, res) => {
               permission_name: true,
             },
           },
-          save: {
-            select: {
-              images: {
-                include: {
-                  users: {
-                    include: {
-                      permission_users: {
-                        select: {
-                          permission_name: true,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
         },
       });
       if (data) {
-        for (let key in data.save) {
-          data.save[key] = {
-            ...data.save[key].images,
-          };
-          data.save[key] = {
-            ...data.save[key],
-            path: uploadPath + "/" + data.save[key].path,
-          };
-          data.save[key].users = {
-            ...data.save[key].users,
-            avatar: avatarPath + "/" + data.save[key].users.avatar,
-          };
-          data.save[key] = {
-            ...data.save[key],
-            author: data.save[key].users,
-          };
-          delete data.save[key]["users"];
-          delete data.save[key].author["permission"];
-          delete data.save[key]["user_id"];
-          delete data.save[key].author["password"];
-        }
-        delete data["permission"];
         successCode(res, "Lấy thông tin thành công!", {
           ...data,
           avatar: avatarPath + data.avatar,
         });
-      } else failCode(res, "Lỗi data");
+      } else failCode(res, "Không tìm thấy user này!");
     } else failCode(res, "Không tìm thấy user");
   } catch (error) {
     console.log(error);
@@ -258,14 +188,30 @@ const deleteUser = async (req, res) => {
         user_id,
       },
     });
-
-    await model.users.delete({
+    if (!checkIfExistUser) failCode(res, "khong tim thay user nay");
+    await model.save.deleteMany({
+      where: {
+        user_id,
+      },
+    });
+    await model.comments.deleteMany({
+      where: {
+        user_id,
+      },
+    });
+    await model.images.deleteMany({
+      where: {
+        user_id,
+      },
+    });
+    await model.users.deleteMany({
       where: {
         user_id,
       },
     });
     successCode(res, `Xóa thành công user ${checkIfExistUser.user_name}`);
   } catch (error) {
+    console.log(error);
     errorCode(res, "Lỗi backend!");
   }
 };
@@ -362,6 +308,70 @@ const deleteAvatar = async (req, res) => {
   }
 };
 
+const userUpdate = async (req, res) => {
+  if (req.fileValidationError) return failCode(res, req.fileValidationError);
+  const { authorization } = req.headers;
+  const currentUserId = getUserIDFromToken(authorization);
+  const checkIfExist = await model.users.findFirst({
+    where: {
+      user_id: currentUserId,
+    },
+  });
+  const img = req.file;
+  try {
+    const { user_name, age } = req.body;
+    const data = {
+      ...(user_name !== checkIfExist.user_name && {
+        user_name,
+      }),
+      ...(age !== checkIfExist.age && { age: Number(age) }),
+    };
+    await model.users.update({
+      data,
+      where: {
+        user_id: currentUserId,
+      },
+    });
+
+    if (img) {
+      const newAvatar = img.filename;
+      if (checkIfExist.avatar !== "avatardefault.png")
+        fs.unlinkSync(avatarPath + "/" + checkIfExist.avatar);
+
+      await model.users.update({
+        where: {
+          user_id: currentUserId,
+        },
+        data: {
+          avatar: newAvatar,
+        },
+      });
+    }
+
+    const currentUserInfo = await model.users.findUnique({
+      where: {
+        user_id: currentUserId,
+      },
+      include: {
+        permission_users: {
+          select: {
+            permission_name: true,
+          },
+        },
+      },
+    });
+    return successCode(
+      res,
+      "update thành công",
+      userResponseHandle(currentUserInfo)
+    );
+  } catch (error) {
+    console.log(error);
+    fs.unlinkSync(avatarPath + "/" + img.filename);
+    errorCode(res, "Lỗi backend!");
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -373,4 +383,5 @@ module.exports = {
   banUser,
   unbannedUser,
   deleteAvatar,
+  userUpdate,
 };

@@ -65,7 +65,7 @@ const imgResponseObjectHandle = (object) => {
   };
   object.author = {
     ...object.author,
-    avatar: avatarPath + "/" + object.author.avatar,
+    avatar: avatarPath + "/" + object.users.avatar,
   };
   delete object["users"];
   delete object["user_id"];
@@ -91,6 +91,13 @@ const cmtResponseHandle = (object) => {
   return object;
 };
 
+const userResponseHandle = (object) => {
+  object.avatar = avatarPath + "/" + object.avatar;
+  delete object["permission"];
+  delete object["password"];
+  return object;
+};
+
 module.exports = {
   parseJwt,
   getUserIDFromToken,
@@ -101,4 +108,5 @@ module.exports = {
   imgCheck,
   imgResponseObjectHandle,
   cmtResponseHandle,
+  userResponseHandle,
 };

@@ -3,7 +3,11 @@ const { errorCode, successCode, failCode } = require("../config/response");
 const model = new PrismaClient();
 const fs = require("fs");
 
-const { getUserIDFromToken, avatarPath } = require("../config/function");
+const {
+  getUserIDFromToken,
+  avatarPath,
+  imgResponseObjectHandle,
+} = require("../config/function");
 
 const avatarUpload = async (req, res) => {
   try {
@@ -66,12 +70,28 @@ const imgUpload = async (req, res) => {
         where: {
           user_id,
         },
+        include: {
+          users: {
+            include: {
+              permission_users: {
+                select: {
+                  permission_name: true,
+                },
+              },
+            },
+          },
+        },
         orderBy: {
           img_id: "desc",
         },
         take: 1,
       });
-      return successCode(res, "Upload thành công", imgByUserId);
+
+      return successCode(
+        res,
+        "Upload thành công",
+        imgResponseObjectHandle(imgByUserId[0])
+      );
     }
     return failCode(res, "Upload không thành công!");
   } catch (error) {

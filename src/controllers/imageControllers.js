@@ -2,7 +2,6 @@ const { PrismaClient } = require("@prisma/client");
 const {
   uploadPath,
   getUserIDFromToken,
-  avatarPath,
   imgResponseObjectHandle,
   cmtResponseHandle,
 } = require("../config/function");
@@ -65,7 +64,7 @@ const getImg = async (req, res) => {
       const newData = imgResponseObjectHandle(checkIfExistImg);
       return successCode(res, "Thành công!", {
         ...newData,
-        path: uploadPath + checkIfExistImg.path,
+        path: uploadPath + "/" + checkIfExistImg.path,
         ...(currentUserId && { saved: checkSaved ? true : false }),
       });
     }
@@ -191,10 +190,55 @@ const getImgByName = async (req, res) => {
     errorCode(res, "Lỗi backend!");
   }
 };
+const imgUpdate = async (req, res) => {
+  const { img_name } = req.body;
+  const { img_id } = req.params;
+  const img = req.file;
+  if (req.fileValidationError) return failCode(res, req.fileValidationError);
+  try {
+    const edittingImg = await model.images.findUnique({
+      where: {
+        img_id: Number(img_id),
+      },
+    });
+    const data = {
+      ...(edittingImg.img_name !== img_name && { img_name }),
+      ...(img && { path: img.filename }),
+    };
+    if (img) fs.unlinkSync(uploadPath + "/" + edittingImg.path);
+    await model.images.update({
+      data,
+      where: {
+        img_id: Number(img_id),
+      },
+    });
+    const newData = await model.images.findUnique({
+      where: {
+        img_id: Number(img_id),
+      },
+      include: {
+        users: {
+          include: {
+            permission_users: {
+              select: {
+                permission_name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    successCode(res, "Update thành công!", imgResponseObjectHandle(newData));
+  } catch (error) {
+    fs.unlinkSync(uploadPath + "/" + img.filename);
+    errorCode(res, "Lỗi backend!");
+  }
+};
 module.exports = {
   getImg,
   deleteImg,
   getAllImg,
   getImgByUserID,
   getImgByName,
+  imgUpdate,
 };

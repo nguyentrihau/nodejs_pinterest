@@ -1,5 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
-const { getUserIDFromToken } = require("../config/function");
+const {
+  getUserIDFromToken,
+  imgResponseObjectHandle,
+} = require("../config/function");
 const { errorCode, failCode, successCode } = require("../config/response");
 const model = new PrismaClient();
 
@@ -24,21 +27,23 @@ const postComment = async (req, res) => {
     await model.comments.create({
       data,
     });
-    const newComment = await model.comments.findFirst({
+    let newComment = await model.comments.findFirst({
       where: {
         img_id,
         user_id: currentUserId,
       },
-      select: {
-        comment_id: true,
-        comment: true,
-        comment_time: true,
+      include: {
         images: {
-          select: {
-            img_id: true,
-            img_name: true,
-            img_time: true,
-            path: true,
+          include: {
+            users: {
+              include: {
+                permission_users: {
+                  select: {
+                    permission_name: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
@@ -47,6 +52,7 @@ const postComment = async (req, res) => {
       },
       take: 1,
     });
+    newComment.images = imgResponseObjectHandle(newComment.images);
     successCode(res, "Comment thành công!", newComment);
   } catch (error) {
     console.log(error);
@@ -72,24 +78,27 @@ const editComment = async (req, res) => {
           comment: comment_value,
         },
       });
-      const newComment = await model.comments.findFirst({
+      let newComment = await model.comments.findFirst({
         where: {
           comment_id,
         },
-        select: {
-          comment_id: true,
-          comment: true,
-          comment_time: true,
+        include: {
           images: {
-            select: {
-              img_id: true,
-              img_name: true,
-              img_time: true,
-              path: true,
+            include: {
+              users: {
+                include: {
+                  permission_users: {
+                    select: {
+                      permission_name: true,
+                    },
+                  },
+                },
+              },
             },
           },
         },
       });
+      newComment.images = imgResponseObjectHandle(newComment.images);
       successCode(res, "Sửa comment thành công", newComment);
     }
   } catch (error) {
@@ -171,15 +180,25 @@ const getCommentHistory = async (req, res) => {
       include: {
         images: {
           include: {
-            users: true,
+            users: {
+              include: {
+                permission_users: {
+                  select: {
+                    permission_name: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
     });
-    for (let value of commentHistory) {
-      delete value["user_id"];
-      delete value.images["user_id"];
-      delete value.images.users["password"];
+    for (let key in commentHistory) {
+      commentHistory[key].images = imgResponseObjectHandle(
+        commentHistory[key].images
+      );
+      delete commentHistory[key].user_id;
+      delete commentHistory[key].img_id;
     }
 
     successCode(res, "Thành Công!", commentHistory);

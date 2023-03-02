@@ -1,5 +1,9 @@
 const { PrismaClient } = require("@prisma/client");
-const { getUserIDFromToken } = require("../config/function");
+const {
+  getUserIDFromToken,
+  userResponseHandle,
+  imgResponseObjectHandle,
+} = require("../config/function");
 const { errorCode, failCode, successCode } = require("../config/response");
 const model = new PrismaClient();
 
@@ -38,12 +42,29 @@ const saveImg = async (req, res) => {
         save_time: new Date(),
       },
     });
-    const newSave = await model.save.findFirst({
+    let newSave = await model.save.findFirst({
       where: {
         user_id: currentUserId,
         img_id,
       },
+      include: {
+        images: {
+          include: {
+            users: {
+              include: {
+                permission_users: {
+                  select: {
+                    permission_name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
+    newSave.images = imgResponseObjectHandle(newSave.images);
+    delete newSave["img_id"];
     successCode(res, "lưu hình ảnh thành công", newSave);
   } catch (error) {
     console.log(error);
@@ -81,7 +102,49 @@ const unSaveImg = async (req, res) => {
     errorCode(res, "Lỗi Backend");
   }
 };
+const getSaveHistory = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const currentUserId = getUserIDFromToken(authorization);
+    let data = await model.save.findMany({
+      where: {
+        user_id: currentUserId,
+      },
+      include: {
+        images: {
+          include: {
+            users: {
+              include: {
+                permission_users: {
+                  select: {
+                    permission_name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+    for (let key in data) {
+      data[key].images = imgResponseObjectHandle(data[key].images);
+    }
+    successCode(res, "lấy dữ liệu thành công", data);
+  } catch (error) {
+    console.log(error);
+    errorCode(res, "Lỗi Backend");
+  }
+};
+const getSaveHistoryByID = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    errorCode(res, "Lỗi Backend");
+  }
+};
 module.exports = {
   saveImg,
   unSaveImg,
+  getSaveHistory,
+  getSaveHistoryByID,
 };

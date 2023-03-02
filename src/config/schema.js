@@ -129,6 +129,7 @@ const getImgByNameSchema = {
     },
   },
 };
+
 module.exports = {
   signUpSchema,
   signInSchema,

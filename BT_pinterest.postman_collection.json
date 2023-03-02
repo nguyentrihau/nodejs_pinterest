@@ -175,7 +175,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJpYXQiOjE2NzcyNjA5MTgsImV4cCI6MTY3NzM0NzMxOH0.9MudFiot90oNnVGtBmMcV0p9cxOPGWaXaxpOawfj9K4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3Nzg1MTQyLCJleHAiOjE2Nzc4NzE1NDJ9.XPOVwS3EPZ-Y_nkoatmLJ2cr_FxAkxdK1gDp6eGnBf4",
 									"type": "string"
 								}
 							]
@@ -183,14 +183,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/user/deleteUser/2",
+							"raw": "{{domain}}/user/deleteUser/20",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"user",
 								"deleteUser",
-								"2"
+								"20"
 							]
 						}
 					},
@@ -318,6 +318,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -345,25 +353,18 @@
 					"name": "getImgID",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3NTAxNTI5LCJleHAiOjE2Nzc1ODc5Mjl9.nNfWKmJt9W4CvNZn0_4cKNWCQumRxT-cFU2DKvZxzQI",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/image/56",
+							"raw": "{{domain}}/image/82",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"image",
-								"56"
+								"82"
 							]
 						}
 					},
@@ -420,7 +421,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzQyNjUxNywiZXhwIjoxNjc3NTEyOTE3fQ.nkJpyOt953tbuiAlhG06zhJouLfFyjVpv7Z6GZmgoMk",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhdUBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOSwiaWF0IjoxNjc3NzgyOTYyLCJleHAiOjE2Nzc4NjkzNjJ9.NY1abgUOlZfs8qLqjY6bNKYx37odk_TmMj3ODmMxQ98",
 									"type": "string"
 								}
 							]
@@ -428,14 +429,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/image/delete/51",
+							"raw": "{{domain}}/image/delete/81",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"image",
 								"delete",
-								"51"
+								"81"
 							]
 						}
 					},
@@ -479,6 +480,31 @@
 									"key": "keyword",
 									"value": "MY"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "imgUpdate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{domain}}/image/update",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"image",
+								"update"
 							]
 						}
 					},
@@ -718,6 +744,34 @@
 								"user",
 								"unsave",
 								"56"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSaveHistory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inh5ekBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOCwiaWF0IjoxNjc3Nzg2NzQwLCJleHAiOjE2Nzc4NzMxNDB9.ltRSoAAtqU0T-We9pWDkyoyll09emmUnoJhKGcltOTg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/getSaveHistory",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"getSaveHistory"
 							]
 						}
 					},

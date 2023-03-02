@@ -21,25 +21,6 @@ CREATE TABLE `comments` (
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`img_id`) REFERENCES `images` (`img_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `comments` (`user_id`, `img_id`, `comment`, `comment_time`, `comment_id`) VALUES
-(18,	56,	'Đây là comment mới!',	'2023-02-26 16:59:08',	26),
-(18,	56,	'Đây là comment mới 123 xyz!',	'2023-02-26 16:59:14',	27),
-(18,	56,	'abcsd',	'2023-02-26 16:59:14',	28),
-(18,	56,	'abcsd',	'2023-02-26 16:59:15',	29),
-(15,	56,	'abcsd',	'2023-02-26 17:07:49',	30),
-(15,	56,	'không có để trống',	'2023-02-26 17:07:52',	31),
-(15,	56,	'abcsd',	'2023-02-26 17:07:54',	32),
-(15,	56,	'abcsd',	'2023-02-26 17:16:00',	33),
-(15,	56,	'commet mới tinh',	'2023-02-26 17:20:29',	34),
-(15,	56,	'commet mới tinh',	'2023-02-26 17:21:34',	35),
-(15,	56,	'comment mới tinh',	'2023-02-26 17:21:36',	36),
-(15,	56,	'comment mới tinh',	'2023-02-26 17:22:25',	37),
-(15,	56,	'comment mới tinh',	'2023-02-26 17:22:49',	38),
-(15,	56,	'comment mới tinh',	'2023-02-26 17:23:03',	39),
-(15,	56,	'comment mới tinh',	'2023-02-26 17:25:03',	40),
-(15,	56,	'comment mới tinh',	'2023-02-26 17:25:45',	41),
-(15,	56,	'comment mới tinh',	'2023-02-26 17:26:43',	42),
-(18,	56,	'comment mới tinh',	'2023-02-27 14:31:10',	43);
 
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
@@ -54,12 +35,7 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `images` (`img_id`, `user_id`, `img_time`, `img_name`, `path`) VALUES
-(56,	18,	'2023-02-26',	'My first upload imgs',	'1677426453955_avatardefault.png'),
-(57,	18,	'2023-02-26',	'My first upload imgs',	'1677427047916_avatardefault.png'),
-(58,	18,	'2023-02-26',	'My first upload imgs',	'1677427055550_avatardefault.png'),
-(59,	18,	'2023-02-26',	'My first upload imgs',	'1677427697053_avatardefault.png'),
-(60,	18,	'2023-02-26',	'My first upload imgs',	'1677427976548_avatardefault.png'),
-(61,	15,	'2023-02-27',	'My first upload imgs',	'1677517216939_pexels-cesar-perez-733745.jpg');
+(82,	18,	'2023-03-02',	'My first upload imgs',	'1677784703241_pexels-cesar-perez-733745.jpg');
 
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
@@ -89,9 +65,7 @@ CREATE TABLE `save` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `save` (`id`, `user_id`, `img_id`, `save_time`) VALUES
-(6,	18,	56,	'2023-02-27 11:56:47'),
-(7,	18,	57,	'2023-02-27 12:33:28'),
-(8,	18,	61,	'2023-02-27 17:00:41');
+(9,	18,	82,	'2023-03-02 19:53:53');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -112,6 +86,7 @@ INSERT INTO `users` (`user_id`, `email`, `password`, `user_name`, `age`, `avatar
 (15,	'abcd@gmail.com',	'$2b$10$g1xDinVJAjmIaoXcAyBALuJoE4vWJQX21lgbyMQCdIYQB.HbT1M1a',	'Thinh',	26,	'avatardefault.png',	1),
 (16,	'abce@gmail.com',	'$2b$10$el.91ZNXNR2N5vmIQCeyiuw9g789qVWlRqhvMgY0tAAfXOCzRDElK',	'Thinh',	26,	'avatardefault.png	',	0),
 (17,	'abcf@gmail.com',	'$2b$10$cj.HUrUGO0scy19nblV/UOiB8lE2Z51igvO93ZA7egb1plQY1hnRy',	'Thinh',	26,	'avatardefault.png',	1),
-(18,	'xyz@gmail.com',	'$2b$10$s5YIM6GJhXR3cpk9Jr7Mpefcwl6jSmI8T6HygJE35KgoWnm8q1PM6',	'Thinh',	26,	'avatardefault.png',	1);
+(18,	'xyz@gmail.com',	'$2b$10$s5YIM6GJhXR3cpk9Jr7Mpefcwl6jSmI8T6HygJE35KgoWnm8q1PM6',	'thinh abc',	8,	'1677779830586_pexels-cesar-perez-733745.jpg',	1),
+(19,	'hau@gmail.com',	'$2b$10$si/JN3KYTnfa4e1ftuPjjOjTfZrqg7TmjrZO2rrVlVoZS/9CRhfue',	'Hau',	26,	'avatardefault.png',	1);
 
--- 2023-02-27 18:06:31
+-- 2023-03-02 20:19:25
