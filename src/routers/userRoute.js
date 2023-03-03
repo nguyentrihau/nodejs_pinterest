@@ -29,8 +29,9 @@ const auth = require("@fastify/auth");
 const {
   unSaveImg,
   saveImg,
-  getSaveHistory,
   getSaveHistoryByID,
+  getAllSaveUser,
+  getSavedHistory,
 } = require("../controllers/saveControllers");
 const { avatarUploadMulter } = require("../config/multer/avatarUploadMulter");
 
@@ -142,13 +143,22 @@ const userRoute = async (server) => {
       deleteUser
     );
     server.get(
-      "/getSaveHistory",
+      "/getSavedHistory",
       {
         preHandler: server.auth([server.verifyToken]),
       },
-      getSaveHistory
+      getSavedHistory
     );
-    server.get("/getSaveHistoryByID/:user_id", {}, getSaveHistoryByID);
+    server.get(
+      "/getSavedHistoryByID/:user_id",
+      {
+        preHandler: server.auth(
+          [server.verifyToken, server.checkPermissionByToken],
+          { relation: "and" }
+        ),
+      },
+      getSaveHistoryByID
+    );
   });
 };
 

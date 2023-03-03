@@ -130,7 +130,7 @@ const getCommentHistoryByID = async (req, res) => {
         user_id,
       },
     });
-    if (!checkIfExist) return failCode(res, "không tìm thấy user nay");
+    if (!checkIfExist) return failCode(res, "không tìm thấy user này");
     let dataComment = await model.comments.findMany({
       where: {
         user_id,

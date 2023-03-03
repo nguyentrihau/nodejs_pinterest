@@ -1,6 +1,10 @@
 const path = require("path");
 const avatarPath = `${process.cwd()}/public/img/avatar`;
 const uploadPath = `${process.cwd()}/public/img/upload`;
+var Jimp = require("jimp");
+const { failCode } = require("./response");
+
+const maxSize = 3000000; //3Mb
 
 const parseJwt = (token) => {
   try {
@@ -42,8 +46,9 @@ const avatarImgCheck = (req, file, cb) => {
 const imgCheck = (req, file, cb) => {
   const filetypes = /jpeg|jpg|png|gif/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  if (!sizeCheck(req, 10000000)) {
-    req.fileValidationError = "Tối đa 10Mb!";
+
+  if (!sizeCheck(req, maxSize)) {
+    req.fileValidationError = `Tối đa ${maxSize / 1000000}Mb!`;
     return cb(null, false, req.fileValidationError);
   }
 
@@ -98,6 +103,23 @@ const userResponseHandle = (object) => {
   return object;
 };
 
+const imgCompressHandler = (req, res, next) => {
+  const img = req.file;
+  if (!img) next();
+  try {
+    Jimp.read(`${uploadPath}/${img.filename}`)
+      .then((image) => {
+        image.quality(60).write(`${uploadPath}/${img.filename}`);
+      })
+      .then(() => next())
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   parseJwt,
   getUserIDFromToken,
@@ -109,4 +131,5 @@ module.exports = {
   imgResponseObjectHandle,
   cmtResponseHandle,
   userResponseHandle,
+  imgCompressHandler,
 };

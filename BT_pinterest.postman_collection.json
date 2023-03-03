@@ -750,7 +750,7 @@
 					"response": []
 				},
 				{
-					"name": "getSaveHistory",
+					"name": "getSavedHistory",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -765,13 +765,42 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/user/getSaveHistory",
+							"raw": "{{domain}}/user/getSavedHistory",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"user",
-								"getSaveHistory"
+								"getSavedHistory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSavedHistoryByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3ODQ1MTUwLCJleHAiOjE2Nzc5MzE1NTB9.DihQD4WKF3tKVQw2uYCPo6BxQAFzBw2BhkbjAUC-aEc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/getSavedHistoryByID/17",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"getSavedHistoryByID",
+								"17"
 							]
 						}
 					},

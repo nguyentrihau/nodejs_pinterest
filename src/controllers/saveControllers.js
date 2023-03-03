@@ -102,7 +102,7 @@ const unSaveImg = async (req, res) => {
     errorCode(res, "Lỗi Backend");
   }
 };
-const getSaveHistory = async (req, res) => {
+const getSavedHistory = async (req, res) => {
   try {
     const { authorization } = req.headers;
     const currentUserId = getUserIDFromToken(authorization);
@@ -137,14 +137,47 @@ const getSaveHistory = async (req, res) => {
 };
 const getSaveHistoryByID = async (req, res) => {
   try {
+    const { user_id } = req.params;
+    const checkIfExist = await model.users.findFirst({
+      where: {
+        user_id: Number(user_id),
+      },
+    });
+    if (!checkIfExist) return failCode(res, "không tìm thấy user này");
+    let data = await model.save.findMany({
+      where: {
+        user_id: Number(user_id),
+      },
+      include: {
+        images: {
+          include: {
+            users: {
+              include: {
+                permission_users: {
+                  select: {
+                    permission_name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    for (let index in data) {
+      data[index].images = imgResponseObjectHandle(data[index].images);
+    }
+    successCode(res, "tìm hình đã save thành công", data);
   } catch (error) {
     console.log(error);
     errorCode(res, "Lỗi Backend");
   }
 };
+
 module.exports = {
   saveImg,
   unSaveImg,
-  getSaveHistory,
+  getSavedHistory,
   getSaveHistoryByID,
 };

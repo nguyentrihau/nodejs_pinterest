@@ -55,7 +55,6 @@ const imgUpload = async (req, res) => {
         user_id,
       },
     });
-    if (!img) return failCode(res, "Chưa có hình!");
     if (checkIfExistUser) {
       if (!img_name) return failCode(res, "Điền tên hình ảnh!");
       const d = new Date();

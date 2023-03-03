@@ -1,4 +1,4 @@
-const { uploadPath, imgCheck } = require("../function");
+const { imgCheck, preUploadPath, uploadPath } = require("../function");
 const multer = require("fastify-multer");
 
 const imgUploadMulter = multer({
