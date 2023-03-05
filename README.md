@@ -15,7 +15,7 @@
 ++ avatar: tự động lấy default
 
 ----- Get current info ----------
-++ Lấy thông tin của bản thân (chỉ cần truyền token)
+++ Lấy thông tin của bản thân (chỉ cần truyền token) 
 
 ---- Get info by id(getUserInfo) ----
 ++ Lấy thông tin của người khác 
