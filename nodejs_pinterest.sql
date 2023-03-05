@@ -34,8 +34,6 @@ CREATE TABLE `images` (
   CONSTRAINT `images_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `images` (`img_id`, `user_id`, `img_time`, `img_name`, `path`) VALUES
-(82,	18,	'2023-03-02',	'My first upload imgs',	'1677784703241_pexels-cesar-perez-733745.jpg');
 
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
@@ -64,9 +62,6 @@ CREATE TABLE `save` (
   CONSTRAINT `save_ibfk_2` FOREIGN KEY (`img_id`) REFERENCES `images` (`img_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `save` (`id`, `user_id`, `img_id`, `save_time`) VALUES
-(9,	18,	82,	'2023-03-02 19:53:53'),
-(10,	14,	82,	'2023-03-03 12:21:07');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -83,11 +78,11 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `users` (`user_id`, `email`, `password`, `user_name`, `age`, `avatar`, `permission`) VALUES
-(14,	'abc@gmail.com',	'$2b$10$3RQSMdq.RHVWK9JVggtz/e.ToVIQK75HAhHcxZuKp3com7n7psK7.',	'Thinh',	26,	'avatardefault.png',	4),
-(15,	'abcd@gmail.com',	'$2b$10$g1xDinVJAjmIaoXcAyBALuJoE4vWJQX21lgbyMQCdIYQB.HbT1M1a',	'Thinh',	26,	'avatardefault.png',	1),
+(14,	'abc@gmail.com',	'$2b$10$3RQSMdq.RHVWK9JVggtz/e.ToVIQK75HAhHcxZuKp3com7n7psK7.',	'hau',	18,	'1678032998942_pexels-cesar-perez-733745.jpg',	4),
+(15,	'abcd@gmail.com',	'$2b$10$g1xDinVJAjmIaoXcAyBALuJoE4vWJQX21lgbyMQCdIYQB.HbT1M1a',	'Thinh',	26,	'avatardefault.png',	3),
 (16,	'abce@gmail.com',	'$2b$10$el.91ZNXNR2N5vmIQCeyiuw9g789qVWlRqhvMgY0tAAfXOCzRDElK',	'Thinh',	26,	'avatardefault.png	',	0),
 (17,	'abcf@gmail.com',	'$2b$10$cj.HUrUGO0scy19nblV/UOiB8lE2Z51igvO93ZA7egb1plQY1hnRy',	'Thinh',	26,	'avatardefault.png',	1),
-(18,	'xyz@gmail.com',	'$2b$10$s5YIM6GJhXR3cpk9Jr7Mpefcwl6jSmI8T6HygJE35KgoWnm8q1PM6',	'thinh abc',	8,	'1677779830586_pexels-cesar-perez-733745.jpg',	1),
+(18,	'xyz@gmail.com',	'$2b$10$s5YIM6GJhXR3cpk9Jr7Mpefcwl6jSmI8T6HygJE35KgoWnm8q1PM6',	'thinh abc',	8,	'1677779830586_pexels-cesar-perez-733745.jpg',	0),
 (19,	'hau@gmail.com',	'$2b$10$si/JN3KYTnfa4e1ftuPjjOjTfZrqg7TmjrZO2rrVlVoZS/9CRhfue',	'Hau',	26,	'avatardefault.png',	1);
 
--- 2023-03-03 18:14:12
+-- 2023-03-05 17:14:31

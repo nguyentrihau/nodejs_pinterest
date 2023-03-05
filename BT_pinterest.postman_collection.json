@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"xyz@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
+							"raw": "{\r\n    \"email\": \"abcd@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -69,14 +69,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/user/getUserInfo/18",
+							"raw": "{{domain}}/user/getUserInfo/15",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"user",
 								"getUserInfo",
-								"18"
+								"15"
 							]
 						}
 					},
@@ -204,7 +204,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3NDI5NzY0LCJleHAiOjE2Nzc1MTYxNjR9.-P5yIKRAsUhSZti9J69SMBZ9ClXV2uZArJy_fQiKexU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc4MDMyMzQ5LCJleHAiOjE2NzgxMTg3NDl9.BCz1GqZE1-0BWQ65F-Qzj5XPGemggsoSUxsWPZVEtKE",
 									"type": "string"
 								}
 							]
@@ -213,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user_id\": 100,\r\n    \"permission_value\": 1\r\n}",
+							"raw": "{\r\n    \"user_id\": 15,\r\n    \"permission_value\": 3\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -241,7 +241,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3NzQyODIyNSwiZXhwIjoxNjc3NTE0NjI1fQ.MWywPfVkzfDM9elNOlQ-r7Z8KqoEJ4T3J4s7K_c7whA",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNTQ2OCwiZXhwIjoxNjc4MTIxODY4fQ.oSm_ZAf1ciipcBG62QXBz7UCbPV0a0Ll3ZLlxGSLRko",
 									"type": "string"
 								}
 							]
@@ -249,14 +249,14 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/user/banUser/18",
+							"raw": "{{domain}}/user/banUser/15",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"user",
 								"banUser",
-								"18"
+								"15"
 							]
 						}
 					},
@@ -270,7 +270,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3NDI5NTE1LCJleHAiOjE2Nzc1MTU5MTV9.5nJwuNzBOCTv62YQZFfLfi_lTRl9gCAvYBicN1wHwks",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNDM5NCwiZXhwIjoxNjc4MTIwNzk0fQ.pthonUqg22zcML2ETF3wJTMructGXN92pPA2D_hQARI",
 									"type": "string"
 								}
 							]
@@ -299,7 +299,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc3NDA3ODYxLCJleHAiOjE2Nzc0OTQyNjF9.4xaxZ8bUuB1oBXml-_-Z0fc67GebRyjKLcWBciJ32rI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzMzg4MSwiZXhwIjoxNjc4MTIwMjgxfQ.tgUCeYupH5QogmXaimP2mYm92ePIK3OLtudc0bRM7Xk",
 									"type": "string"
 								}
 							]
@@ -322,8 +322,48 @@
 				{
 					"name": "updateUser",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc4MDMyMzQ5LCJleHAiOjE2NzgxMTg3NDl9.BCz1GqZE1-0BWQ65F-Qzj5XPGemggsoSUxsWPZVEtKE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Downloads/pexels-cesar-perez-733745.jpg"
+								},
+								{
+									"key": "age",
+									"value": "18",
+									"type": "text"
+								},
+								{
+									"key": "user_name",
+									"value": "hau",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/user/update",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"update"
+							]
+						}
 					},
 					"response": []
 				}
@@ -414,7 +454,7 @@
 					"response": []
 				},
 				{
-					"name": "deleteimg",
+					"name": "deleteImg",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -807,6 +847,12 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "localhost:8080/api"
 		}
 	]
 }
