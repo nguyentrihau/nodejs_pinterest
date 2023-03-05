@@ -1,10 +1,10 @@
-const { imgCheck, preUploadPath, uploadPath } = require("../function");
+const { imgCheck, preUploadPath } = require("../function");
 const multer = require("fastify-multer");
 
 const imgUploadMulter = multer({
   storage: multer.diskStorage({
     destination: (req, res, cb) => {
-      cb(null, uploadPath);
+      cb(null, preUploadPath);
     },
     filename: (req, file, cb) => {
       const d = new Date();

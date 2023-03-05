@@ -30,16 +30,21 @@ const {
   unSaveImg,
   saveImg,
   getSaveHistoryByID,
-  getAllSaveUser,
   getSavedHistory,
 } = require("../controllers/saveControllers");
 const { avatarUploadMulter } = require("../config/multer/avatarUploadMulter");
+const { avatarCompressHandler } = require("../config/function");
+const {
+  moderatorPermissionCheck,
+  adminPermissionCheck,
+} = require("../config/authorization/permissionCheck");
 
 const userRoute = async (server) => {
   server
     .decorate("verifyToken", verifyToken)
-    .decorate("checkPermissionByToken", checkPermissionByToken)
+    .decorate("adminPermissionCheck", adminPermissionCheck)
     .decorate("bannedCheck", bannedCheck)
+    .decorate("moderatorPermissionCheck", moderatorPermissionCheck)
     .register(auth);
 
   server.after(() => {
@@ -57,7 +62,7 @@ const userRoute = async (server) => {
       {
         ...banUserSchema,
         preHandler: server.auth(
-          [server.verifyToken, server.checkPermissionByToken],
+          [server.verifyToken, server.moderatorPermissionCheck],
           {
             relation: "and",
           }
@@ -70,7 +75,7 @@ const userRoute = async (server) => {
       {
         ...banUserSchema,
         preHandler: server.auth(
-          [server.verifyToken, server.checkPermissionByToken],
+          [server.verifyToken, server.moderatorPermissionCheck],
           {
             relation: "and",
           }
@@ -90,7 +95,7 @@ const userRoute = async (server) => {
       {
         ...setPermissionSchema,
         preHandler: server.auth(
-          [server.verifyToken, server.checkPermissionByToken],
+          [server.verifyToken, server.adminPermissionCheck],
           {
             relation: "and",
           }
@@ -127,6 +132,7 @@ const userRoute = async (server) => {
             relation: "and",
           }),
           avatarUploadMulter.single("avatar"),
+          avatarCompressHandler,
         ],
       },
       userUpdate
@@ -136,7 +142,7 @@ const userRoute = async (server) => {
       {
         ...deleteUserSchema,
         preHandler: server.auth(
-          [server.verifyToken, server.checkPermissionByToken],
+          [server.verifyToken, server.adminPermissionCheck],
           { relation: "and" }
         ),
       },
@@ -153,7 +159,7 @@ const userRoute = async (server) => {
       "/getSavedHistoryByID/:user_id",
       {
         preHandler: server.auth(
-          [server.verifyToken, server.checkPermissionByToken],
+          [server.verifyToken, server.adminPermissionCheck],
           { relation: "and" }
         ),
       },

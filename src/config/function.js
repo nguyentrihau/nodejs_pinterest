@@ -1,10 +1,13 @@
 const path = require("path");
 const avatarPath = `${process.cwd()}/public/img/avatar`;
 const uploadPath = `${process.cwd()}/public/img/upload`;
-var Jimp = require("jimp");
-const { failCode } = require("./response");
+const preUploadPath = `${process.cwd()}/public/img/preUpload`;
 
-const maxSize = 3000000; //3Mb
+const { failCode } = require("./response");
+const sharp = require("sharp");
+const fs = require("fs");
+
+const maxSize = 6000000; //6Mb
 
 const parseJwt = (token) => {
   try {
@@ -31,8 +34,8 @@ const avatarImgCheck = (req, file, cb) => {
   const filetypes = /jpeg|jpg|png|gif/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 
-  if (!sizeCheck(req, 3000000)) {
-    req.fileValidationError = "Tối đa 3Mb!";
+  if (!sizeCheck(req, maxSize)) {
+    req.fileValidationError = `Tối đa ${maxSize / 1000000}Mb!`;
     return cb(null, false, req.fileValidationError);
   }
 
@@ -103,18 +106,29 @@ const userResponseHandle = (object) => {
   return object;
 };
 
-const imgCompressHandler = (req, res, next) => {
+const imgCompressHandler = async (req, res) => {
   const img = req.file;
-  if (!img) next();
+  if (!img) return failCode(res, "Chưa có hình!");
   try {
-    Jimp.read(`${uploadPath}/${img.filename}`)
-      .then((image) => {
-        image.quality(60).write(`${uploadPath}/${img.filename}`);
-      })
-      .then(() => next())
-      .catch((error) => {
-        console.log(error);
-      });
+    await sharp(`${preUploadPath}/${img.filename}`)
+      .png({ quality: 80 })
+      .jpeg({ quality: 80 })
+      .toFile(`${uploadPath}/${img.filename}`);
+    await fs.unlinkSync(`${preUploadPath}/${img.filename}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const avatarCompressHandler = async (req, res) => {
+  const img = req.file;
+  if (!img) return failCode(res, "Chưa có hình!");
+  try {
+    await sharp(`${preUploadPath}/${img.filename}`)
+      .png({ quality: 80 })
+      .jpeg({ quality: 80 })
+      .toFile(`${avatarPath}/${img.filename}`);
+    fs.unlinkSync(`${preUploadPath}/${img.filename}`);
   } catch (error) {
     console.log(error);
   }
@@ -132,4 +146,6 @@ module.exports = {
   cmtResponseHandle,
   userResponseHandle,
   imgCompressHandler,
+  preUploadPath,
+  avatarCompressHandler,
 };

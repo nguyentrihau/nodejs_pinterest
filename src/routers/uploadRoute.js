@@ -3,13 +3,12 @@ const { verifyToken } = require("../utils/jwtoken");
 const auth = require("@fastify/auth");
 const { bannedCheck } = require("../config/authorization/adminAuthorization");
 const { avatarUploadMulter } = require("../config/multer/avatarUploadMulter");
-const {
-  imgUploadMulter,
-  imgUploadMulterTest,
-} = require("../config/multer/imgUploadMulter");
+const { imgUploadMulter } = require("../config/multer/imgUploadMulter");
 
-const { successCode } = require("../config/response");
-const { imgCompressHandler } = require("../config/function");
+const {
+  imgCompressHandler,
+  avatarCompressHandler,
+} = require("../config/function");
 
 const uploadRoute = async (server) => {
   server
@@ -26,6 +25,7 @@ const uploadRoute = async (server) => {
             relation: "and",
           }),
           avatarUploadMulter.single("avatar"),
+          avatarCompressHandler,
         ],
       },
       avatarUpload

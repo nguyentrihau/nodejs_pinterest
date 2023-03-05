@@ -7,9 +7,7 @@ const { createToken } = require("../utils/jwtoken");
 const {
   getUserIDFromToken,
   avatarPath,
-  uploadPath,
   userResponseHandle,
-  imgResponseObjectHandle,
 } = require("../config/function");
 const fs = require("fs");
 
@@ -247,7 +245,25 @@ const setPermission = async (req, res) => {
 
 const banUser = async (req, res) => {
   try {
+    const { authorization } = req.headers;
     const { user_id } = req.params;
+    const currentUserId = getUserIDFromToken(authorization);
+    const currentUser = await model.users.findUnique({
+      where: {
+        user_id: Number(currentUserId),
+      },
+    });
+    const bannedUser = await model.users.findUnique({
+      where: {
+        user_id: Number(user_id),
+      },
+    });
+    if (currentUser.permission < bannedUser.permission)
+      return failCode(res, "Không đủ quyền!");
+
+    if (currentUser.permission === bannedUser.permission)
+      return failCode(res, "Không dc ban bản thân!");
+
     await model.users.update({
       where: {
         user_id,

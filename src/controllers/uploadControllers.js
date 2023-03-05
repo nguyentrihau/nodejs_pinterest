@@ -22,8 +22,6 @@ const avatarUpload = async (req, res) => {
       },
     });
 
-    if (!img) return failCode(res, "Chưa có hình!");
-
     if (userFromToken) {
       if (userFromToken.avatar !== "avatardefault.png")
         fs.unlinkSync(avatarPath + "/" + userFromToken.avatar);

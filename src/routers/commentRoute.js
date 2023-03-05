@@ -1,12 +1,12 @@
 const auth = require("@fastify/auth");
-const {
-  bannedCheck,
-  checkPermissionByToken,
-} = require("../config/authorization/adminAuthorization");
+const { bannedCheck } = require("../config/authorization/adminAuthorization");
 const {
   deleteCommentAuthorCheck,
   editCommentAuthorCheck,
 } = require("../config/authorization/commentAuthorization");
+const {
+  adminPermissionCheck,
+} = require("../config/authorization/permissionCheck");
 const {
   postCommentSchema,
   deleteCommentSchema,
@@ -28,7 +28,7 @@ const commentRoute = async (server) => {
     .decorate("deleteCommentAuthorCheck", deleteCommentAuthorCheck)
     .decorate("editCommentAuthorCheck", editCommentAuthorCheck)
     .decorate("bannedCheck", bannedCheck)
-    .decorate("checkPermissionByToken", checkPermissionByToken)
+    .decorate("adminPermissionCheck", adminPermissionCheck)
     .register(auth);
   server.after(() => {
     server.post(
@@ -76,7 +76,7 @@ const commentRoute = async (server) => {
       {
         ...getCommentHistoryByIDSchema,
         preHandler: server.auth(
-          [server.verifyToken, server.checkPermissionByToken],
+          [server.verifyToken, server.adminPermissionCheck],
           {
             relation: "and",
           }
