@@ -1,5 +1,5 @@
 # nodejs_pinterest
------------------ APi users ----------------
+----------------- #APi users ----------------
 
 -- Permission:
 + Có 5 bậc từ 0 - 4 + 0: banned: chỉ có thể lấy thông tin, ko thể sửa, xóa 
@@ -59,4 +59,4 @@
   + user_name:string
   + avatar: file image
   
---------------- API img -----------------
+--------------- #API img -----------------
