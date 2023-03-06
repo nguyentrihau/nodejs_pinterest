@@ -60,3 +60,5 @@
   + avatar: file image
   
 --------------- API img -----------------
+----- getAllImg -----
++ 
