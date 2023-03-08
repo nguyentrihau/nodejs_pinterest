@@ -1,5 +1,5 @@
 # nodejs_pinterest
------------------ APi users ----------------
+------------------------------------- APi users --------------------------------------------
 
 -- Permission:
 + Có 5 bậc từ 0 - 4 + 0: banned: chỉ có thể lấy thông tin, ko thể sửa, xóa 
@@ -59,6 +59,44 @@
   + user_name:string
   + avatar: file image
   
---------------- API img -----------------
------ getAllImg -----
-+ 
+----------------------------------- API img ----------------------------
+
+---- getAllImg ----
++ Ai cũng có thể lấy và nhìn thấy tất cả (không cần token)
+
+---- getImgID ----
++ Kiếm ảnh theo img_id của ảnh
++ Truyền vào token và params id ảnh cần tìm
+
+---- imgUpload ----
++ Đăng hình ảnh lên bằng form-data:
+    + Truyền vào token(Người dùng đang đăng nhập đăng ảnh lên)
+    + imgUpload: file hình ảnh
+    + img_name:string 
+  - Giảm dung lượng ảnh đăng lên bằng sharp
+  - check image đăng lên tối đã 6mb
+  
+---- deleteImg ----
++ Chỉ có admin được quyền xóa ảnh:
+    + Truyền vào token và params img_id muốn xóa
+ 
+---- getImgByUserId ----
++ Tìm ảnh theo user_id :
+    + Truyền vào params :user_id
+    + Ai cũng có thể tìm và nhìn thấy hình ảnh của người cần tìm
+
+---- getImgByName ----
++ Tìm ảnh theo tên hình ảnh:
+    + Truyền vào query : keyword = (tên muốn tìm) 
+    + Ai cũng có thể tìm hình ảnh theo tên
+
+---- imgUpdate ----
++ Cập nhật hình ảnh của mình theo img_id:
+    + Truyền vào token và form-data: - img_name:string
+                                     - imgUpdate:file hình ảnh
+
+----------------------------------- comment ---------------------------------
+
+---- postComment
+    
+     
