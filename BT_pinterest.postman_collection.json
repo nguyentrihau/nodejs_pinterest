@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"abcd@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
+							"raw": "{\r\n    \"email\": \"abc@gmail.com\",\r\n    \"password\": \"Thinh123@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,101 +197,6 @@
 					"response": []
 				},
 				{
-					"name": "setPermission",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc4MDMyMzQ5LCJleHAiOjE2NzgxMTg3NDl9.BCz1GqZE1-0BWQ65F-Qzj5XPGemggsoSUxsWPZVEtKE",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"user_id\": 15,\r\n    \"permission_value\": 3\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{domain}}/user/setPermission",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"user",
-								"setPermission"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "banUser",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNTQ2OCwiZXhwIjoxNjc4MTIxODY4fQ.oSm_ZAf1ciipcBG62QXBz7UCbPV0a0Ll3ZLlxGSLRko",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/user/banUser/15",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"user",
-								"banUser",
-								"15"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "unbanUser",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNDM5NCwiZXhwIjoxNjc4MTIwNzk0fQ.pthonUqg22zcML2ETF3wJTMructGXN92pPA2D_hQARI",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/user/unbannedUser/18",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"user",
-								"unbannedUser",
-								"18"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "deleteAvatar",
 					"request": {
 						"auth": {
@@ -366,6 +271,68 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "banUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNTQ2OCwiZXhwIjoxNjc4MTIxODY4fQ.oSm_ZAf1ciipcBG62QXBz7UCbPV0a0Ll3ZLlxGSLRko",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{domain}}/user/banUser/15",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"banUser",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unbanUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNDM5NCwiZXhwIjoxNjc4MTIwNzk0fQ.pthonUqg22zcML2ETF3wJTMructGXN92pPA2D_hQARI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/unbannedUser/18",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"unbannedUser",
+								"18"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -375,6 +342,16 @@
 				{
 					"name": "getAllImg",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODI1NDczOSwiZXhwIjoxNjc4MzQxMTM5fQ.wuSweTELcqhGmqXACEdzKwrQ2uyrK7EYkoRtr6zpkAU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -461,7 +438,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhdUBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxOSwiaWF0IjoxNjc3NzgyOTYyLCJleHAiOjE2Nzc4NjkzNjJ9.NY1abgUOlZfs8qLqjY6bNKYx37odk_TmMj3ODmMxQ98",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODI1NDczOSwiZXhwIjoxNjc4MzQxMTM5fQ.wuSweTELcqhGmqXACEdzKwrQ2uyrK7EYkoRtr6zpkAU",
 									"type": "string"
 								}
 							]
@@ -469,14 +446,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/image/delete/81",
+							"raw": "{{domain}}/image/delete/142",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"image",
 								"delete",
-								"81"
+								"142"
 							]
 						}
 					},
@@ -527,24 +504,43 @@
 				},
 				{
 					"name": "imgUpdate",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODI1NDczOSwiZXhwIjoxNjc4MzQxMTM5fQ.wuSweTELcqhGmqXACEdzKwrQ2uyrK7EYkoRtr6zpkAU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "formdata",
-							"formdata": []
+							"formdata": [
+								{
+									"key": "img_name",
+									"value": "mypicupdate",
+									"type": "text"
+								},
+								{
+									"key": "imgUpdate",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Downloads/pexels-cesar-perez-733745.jpg"
+								}
+							]
 						},
 						"url": {
-							"raw": "{{domain}}/image/update",
+							"raw": "{{domain}}/image/update/137",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"image",
-								"update"
+								"update",
+								"137"
 							]
 						}
 					},
@@ -841,6 +837,66 @@
 								"user",
 								"getSavedHistoryByID",
 								"17"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "permission",
+			"item": [
+				{
+					"name": "getAllPermission",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/permission/getAllPermission",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"permission",
+								"getAllPermission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setPermission",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJ1c2VyX2lkIjoxNCwiaWF0IjoxNjc4MDMyMzQ5LCJleHAiOjE2NzgxMTg3NDl9.BCz1GqZE1-0BWQ65F-Qzj5XPGemggsoSUxsWPZVEtKE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 15,\r\n    \"permission_value\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/user/setPermission",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"setPermission"
 							]
 						}
 					},

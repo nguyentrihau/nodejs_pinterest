@@ -21,6 +21,8 @@ CREATE TABLE `comments` (
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`img_id`) REFERENCES `images` (`img_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO `comments` (`user_id`, `img_id`, `comment`, `comment_time`, `comment_id`) VALUES
+(15,	137,	'không có để trống',	'2023-03-08 07:04:33',	6);
 
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
@@ -34,6 +36,11 @@ CREATE TABLE `images` (
   CONSTRAINT `images_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO `images` (`img_id`, `user_id`, `img_time`, `img_name`, `path`) VALUES
+(137,	15,	'2023-03-08',	'newUpdate',	'1678257074073_pexels-cesar-perez-733745.jpg'),
+(139,	15,	'2023-03-08',	'My first upload imgs',	'1678259716339_floral-designs-3840x2160-10372.jpg'),
+(140,	15,	'2023-03-08',	'My first upload imgs',	'1678259732685_floral-designs-3840x2160-10372.jpg'),
+(141,	15,	'2023-03-08',	'My first upload imgs',	'1678259740913_floral-designs-3840x2160-10372.jpg');
 
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
@@ -85,4 +92,4 @@ INSERT INTO `users` (`user_id`, `email`, `password`, `user_name`, `age`, `avatar
 (18,	'xyz@gmail.com',	'$2b$10$s5YIM6GJhXR3cpk9Jr7Mpefcwl6jSmI8T6HygJE35KgoWnm8q1PM6',	'thinh abc',	8,	'1677779830586_pexels-cesar-perez-733745.jpg',	0),
 (19,	'hau@gmail.com',	'$2b$10$si/JN3KYTnfa4e1ftuPjjOjTfZrqg7TmjrZO2rrVlVoZS/9CRhfue',	'Hau',	26,	'avatardefault.png',	1);
 
--- 2023-03-05 17:14:31
+-- 2023-03-11 01:32:48
