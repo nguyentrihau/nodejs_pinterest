@@ -2,6 +2,7 @@ const path = require("path");
 const avatarPath = `${process.cwd()}/public/img/avatar`;
 const uploadPath = `${process.cwd()}/public/img/upload`;
 const preUploadPath = `${process.cwd()}/public/img/preUpload`;
+const jwt = require("jsonwebtoken");
 
 const { failCode } = require("./response");
 const sharp = require("sharp");
@@ -9,16 +10,8 @@ const fs = require("fs");
 
 const maxSize = 6000000; //6Mb
 
-const parseJwt = (token) => {
-  try {
-    return JSON.parse(atob(token.split(".")[1]));
-  } catch (e) {
-    return null;
-  }
-};
-
 const getUserIDFromToken = (token) => {
-  let user_id = parseJwt(token.split("Bearer ")[1]);
+  let user_id = jwt.decode(token.split("Bearer ")[1]);
   return user_id.user_id;
 };
 
@@ -135,7 +128,6 @@ const avatarCompressHandler = async (req, res) => {
 };
 
 module.exports = {
-  parseJwt,
   getUserIDFromToken,
   sizeCheck,
   avatarImgCheck,

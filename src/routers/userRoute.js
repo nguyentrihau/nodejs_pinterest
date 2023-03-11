@@ -23,6 +23,7 @@ const {
   unbannedUser,
   deleteAvatar,
   userUpdate,
+  getAllPermission,
 } = require("../controllers/userControllers");
 const { verifyToken } = require("../utils/jwtoken");
 const auth = require("@fastify/auth");
