@@ -7,6 +7,10 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
+DROP DATABASE IF EXISTS `nodejs_pinterest`;
+CREATE DATABASE `nodejs_pinterest` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `nodejs_pinterest`;
+
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `user_id` int NOT NULL,
@@ -92,4 +96,4 @@ INSERT INTO `users` (`user_id`, `email`, `password`, `user_name`, `age`, `avatar
 (18,	'xyz@gmail.com',	'$2b$10$s5YIM6GJhXR3cpk9Jr7Mpefcwl6jSmI8T6HygJE35KgoWnm8q1PM6',	'thinh abc',	8,	'1677779830586_pexels-cesar-perez-733745.jpg',	0),
 (19,	'hau@gmail.com',	'$2b$10$si/JN3KYTnfa4e1ftuPjjOjTfZrqg7TmjrZO2rrVlVoZS/9CRhfue',	'Hau',	26,	'avatardefault.png',	1);
 
--- 2023-03-11 01:32:48
+-- 2023-03-12 06:21:09

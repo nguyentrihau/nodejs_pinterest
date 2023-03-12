@@ -271,68 +271,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "banUser",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNTQ2OCwiZXhwIjoxNjc4MTIxODY4fQ.oSm_ZAf1ciipcBG62QXBz7UCbPV0a0Ll3ZLlxGSLRko",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "{{domain}}/user/banUser/15",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"user",
-								"banUser",
-								"15"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "unbanUser",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNDM5NCwiZXhwIjoxNjc4MTIwNzk0fQ.pthonUqg22zcML2ETF3wJTMructGXN92pPA2D_hQARI",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/user/unbannedUser/18",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"user",
-								"unbannedUser",
-								"18"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -897,6 +835,68 @@
 							"path": [
 								"user",
 								"setPermission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unbanUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNDM5NCwiZXhwIjoxNjc4MTIwNzk0fQ.pthonUqg22zcML2ETF3wJTMructGXN92pPA2D_hQARI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/user/unbannedUser/18",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"unbannedUser",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "banUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwidXNlcl9pZCI6MTUsImlhdCI6MTY3ODAzNTQ2OCwiZXhwIjoxNjc4MTIxODY4fQ.oSm_ZAf1ciipcBG62QXBz7UCbPV0a0Ll3ZLlxGSLRko",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{domain}}/user/banUser/15",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user",
+								"banUser",
+								"15"
 							]
 						}
 					},
